@@ -1,2 +1,3 @@
-# cs480-assignment1
-The process of completing assignment 1 done with version control!
+# cs480 - Advanced Topics in Computing
+The process of completing assignments for the summer using version control!
+*.*
