@@ -6,15 +6,14 @@
 #include <stdlib.h>
 
 void charWriteFile(const char *, const char *);
-void removeArr(char *, int, int, int *);
-void removeNonAlphabetic(char *, int);
-void lineWriteFile(const char *, const * char);
+void removeNonAlphabeticChar(char * line);
+void lineWriteFile(const char *, const char *);
 
 // Reads from r_stream and writes to w_stream character by character
 void charWriteFile(const char * file_read, const char * file_write) {
   FILE * r_stream = fopen(file_read, "r"); 
   FILE * w_stream = fopen(file_write, "w");
-  char buffer;
+  char buffer = '\0';
 
   do {
     buffer = fgetc(r_stream);
@@ -25,25 +24,14 @@ void charWriteFile(const char * file_read, const char * file_write) {
   fclose(w_stream);
 }
 
-// Copies over remainaing elements in array to current spot
-void removeArr(char * arr, int index, int count, int * size) {
-  index = index - (count-1);
-  do {
-     arr[index] = arr[index+(count+1)];
-     index++;
-  } while (arr[index+(count+1)] != '\0');
-  //*size = *size-count;
-}
-
-// Reads through the string until a non-alphabetic char is found
-void removeNonAlphabet(char * line, int * size) {
-  int count;
-  for (int i = 0; i < size-1; i++) {
-    while (line[i] < 'A' || line[i] > 'Z' && line[i] < 'a' || line[i] > 'z') {
-        count++;
-        i++;
+void removeNonAlphabeticChar(char * line) {
+  for(int index = 0, temp; line[index] != '\0'; ++index) {
+    while(!(line[index] >= 'A' && line[index] <= 'Z') && !(line[index] >= 'a' && line[index] <= 'z') && !(line[index] == '\0')) {
+      for(temp = index; line[temp] != '\0'; ++temp) {
+        line[temp] = line[temp+1];
+      }
+      line[temp] = '\0';
     }
-  removeArr(line, i, count, &size);
   }
 }
 
@@ -51,17 +39,16 @@ void removeNonAlphabet(char * line, int * size) {
 void lineWriteFile(const char * file_read, const char * file_write) {
   FILE * r_stream = fopen(file_read, "r");
   FILE * w_stream = fopen(file_write, "w");
-  char buffer[32];
-  char * b = buffer;
-  //size_t size = 32;
-  size_t line;
+  size_t size = 0;
+  char * buffer = NULL;
+  size_t bufsize = 32;
  
   do { 
-    line = getline(&b, &buffer, r_stream); 
-    removeNonAlphabet(b, line);
-    printf("Size: %zu\nLine: %s\n", line, b);
-    fputs(b, w_stream);
-  } while (*b != EOF);
+    size = getline(&buffer, &bufsize, r_stream); 
+    removeNonAlphabeticChar(buffer);
+    printf("Size: %zu\nLine: %s\n", size, buffer);
+    fputs(buffer, w_stream);
+  } while (*buffer != EOF);
 
   fclose(r_stream);
   fclose(w_stream);
