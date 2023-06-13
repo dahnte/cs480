@@ -27,6 +27,8 @@ void charWriteFile(const char * file_read, const char * file_write) {
   } while (buffer != EOF);  
   fclose(r_stream);
   fclose(w_stream);
+
+  printf("Wrote to %s successfully!\n", file_write);
 }
 
 /* Function: void removeNonAlphabetChar
@@ -60,17 +62,18 @@ void removeNonAlphabetChar(char * line) {
 void lineWriteFile(const char * file_read, const char * file_write) {
   FILE * r_stream = fopen(file_read, "r");
   FILE * w_stream = fopen(file_write, "w");
-  size_t size = 0;
   size_t buffer_size = 0;
   char * buffer = NULL;
 
   while(getline(&buffer, &buffer_size, r_stream) != -1) {
     removeNonAlphabetChar(buffer);
-    printf("%s\n", buffer);
+    //printf("%s\n", buffer);
     fputs(buffer, w_stream);
   }
   fclose(r_stream);
   fclose(w_stream);
+
+  printf("Wrote to %s successfully!\n", file_write);
 }
 
 /* Function: int diffFile
@@ -82,13 +85,31 @@ void lineWriteFile(const char * file_read, const char * file_write) {
 */ 
 
 int diffFile(const char * file_comp1, const char * file_comp2) {
-  FILE * file_comp1 = fopen("bogLyrics.txt", "r");
-  FILE * file_comp2 = fopen("bogWrite.txt", "r");
-  FILE * prompt = popen("diff");
+  FILE * r_stream1 = fopen(file_comp1, "r");
+  FILE * r_stream2 = fopen(file_comp2, "r");
+  char * diff_prompt;
+  sprintf(diff_prompt, "diff %s %s", file_comp1, file_comp2);
+  FILE * prompt = popen(diff_prompt, "w");
+  size_t buffer_size = 0;
+  char * buffer = NULL;
+
+  while(fgets(buffer, buffer_size, prompt)) {
+    printf("%s", buffer);
+  }
+  fclose(r_stream1);
+  fclose(r_stream2);
+  pclose(prompt);
+  return 
 }
 
 int main() {
+  printf("charWriteFile: ");
   charWriteFile("bogLyrics.txt", "bogWrite.txt");
+
+  printf("lineWriteFile: ");
   lineWriteFile("bogWrite.txt", "bogWriteNA.txt");
+
+  printf("diffFile: ");
+  diffFile("bogLyrics.txt", "bogWrite.txt");
   return 0;
 }
