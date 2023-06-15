@@ -1,3 +1,3 @@
 # cs480 - Advanced Topics in Computing
-The process of completing assignments for the summer using version control!
+The process of completing CS480's assignments and labs with the help of git version control!
 ^o^
