@@ -1,20 +1,21 @@
-/* Written by: Dante Cardenas
-   June 12, 2023
-   CS480 - Advanced Topics in Computing
-
-   File contains my solution to assignment 1. Each function is preceded with a comment that exaplains its process.
-*/
+/* 
+ * Author: Dante Cardenas
+ * June 12, 2023
+ * CS480 - Advanced Topics in Computing
+ *
+ * File contains my solution to assignment 1. Each function is preceded with a comment that exaplains its process.
+ */
 
 #include <stdio.h>
 #include <stdlib.h>
 #include <ctype.h>
 
 /* Function: void charWriteFile
-   ----------------------------
-   file_read: Name of file to be read from
-   file_write: Name of file to be written to
-   
-   side-effect: Reads from file_read, character by character, and writes into file_write, character by character. Writes to terminal if successful.
+ * ----------------------------
+ * file_read: Name of file to be read from
+ * file_write: Name of file to be written to
+ * 
+ * side-effect: Reads from file_read, character by character, and writes into file_write, character by character. Writes to terminal if successful.
 */
 
 void charWriteFile(const char *file_read, const char *file_write) {
@@ -31,10 +32,10 @@ void charWriteFile(const char *file_read, const char *file_write) {
 }
 
 /* Function: void removeNonAlphabetChar
-   ------------------------------------
-   line: A pointer to the buffer holding current line read from file
-   
-   side-effect: Reads line character by character and removes non-alphabetical characters by copying over the next alphbetical character. Runs until it reaches the '\0' delim.
+ * ------------------------------------
+ * line: A pointer to the buffer holding current line read from file
+ * 
+ * side-effect: Reads line character by character and removes non-alphabetical characters by copying over the next alphbetical character. Runs until it reaches the '\0' delim.
 */
 
 void removeNonAlphabetChar(char * line) {
@@ -51,11 +52,13 @@ void removeNonAlphabetChar(char * line) {
 }
 
 /* Function: void lineWriteFile
-   ----------------------------
-   file_read: Name of file to be read from
-   file_write: Name of file to be written to
-   
-   side-effect: Reads from file_read line by line until failure or EOF condition. While getline is active, the current buffer is then passed to removeNonAlphabetChar. Once the buffer has been processed it is then written to file_write. Writes to terminal if sucessful.
+ * ----------------------------
+ * file_read: Name of file to be read from
+ * file_write: Name of file to be written to
+ * 
+ * side-effect: Reads from file_read line by line until failure or EOF condition. 
+ * While getline is active, the current buffer is then passed to removeNonAlphabetChar. 
+ * Once the buffer has been processed it is then written to file_write. Writes to terminal if sucessful.
 */
 
 void lineWriteFile(const char *file_read, const char *file_write) {
