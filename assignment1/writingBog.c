@@ -23,7 +23,7 @@ void charWriteFile(const char *file_read, const char *file_write) {
   FILE *w_stream = fopen(file_write, "w");
   char buffer = '\0';
 
-  while((buffer = fgetc(r_stream)) != EOF) {
+  while ((buffer = fgetc(r_stream)) != EOF) {
     fputc(buffer, w_stream);
   }  
   if (fclose(r_stream) == 0 && fclose(w_stream) == 0) {
@@ -39,11 +39,11 @@ void charWriteFile(const char *file_read, const char *file_write) {
 */
 
 void removeNonAlphabetChar(char * line) {
-   for (int i = 0, j; line[i] != '\0'; ++i) { 
-    while ((line[i] < 'A' || line[i] > 'Z') 
+   for(int i = 0, j; line[i] != '\0'; ++i) { 
+    while((line[i] < 'A' || line[i] > 'Z') 
       && (line[i] < 'a' || line[i] > 'z') 
       && (line[i] != '\0' && line[i] != '\n') ) {
-      for (j = i; line[j] != '\0'; ++j) {
+      for(j = i; line[j] != '\0'; ++j) {
         line[j] = line[j + 1];
       }
       line[j] = '\0';
@@ -71,7 +71,7 @@ void lineWriteFile(const char *file_read, const char *file_write) {
     removeNonAlphabetChar(buffer);
     fputs(buffer, w_stream);
   }
-  if (fclose(r_stream) == 0 && fclose(w_stream) == 0) {
+  if(fclose(r_stream) == 0 && fclose(w_stream) == 0) {
     printf("Wrote to %s successfully!\n", file_write);
   }
 }
