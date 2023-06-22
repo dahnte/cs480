@@ -14,55 +14,62 @@
  * declare themselves the winner
  */
 
+#include <sys/types.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 #include <unistd.h>
 #define BUFFER_SIZE 256
 
-/*
- * getNumString.c
+/* 
+ * checkString
  *
- * side-effect: check for invalid chars, remove any amount of
- * consecutive 5 or 7
- * return: a string of characters contianing 5 and 7
+ *  return: 1 if string is valid, 0 if otherwise
  */
 
-/* 
- * checkString.c 
- *
- * return: a string that has been checked for invalid characters
- */
+int checkString(char *string) {
+	int check = 0;
+	for(int i = 0; string[i] != '\0' && string[i] != '\n'; i++) { /* fgets adds a '\n'*/
+		if(string[i] != '5' && string[i] != '7') {
+			check++;
+		}
+	}
+	return check;
+}
 
 int main() {
-  int pipefd[2];
-  pid_t pid;
-  char buffer[BUFFER_SIZE];
+	int pipefd[2];
+	pid_t pid;
+	char buffer[BUFFER_SIZE];
 
-  if(pipe(pipefd) == -1) {
-    printf("Error creating pipe");
-    return 1;
-  }
+	if(pipe(pipefd) == -1) {
+		printf("Error creating pipe");
+		return 1;
+	}
 
-  pid = fork();
+	pid = fork();
 
-  if(pid < 0) {
-    printf("Error with pipe");
-    return 2;
-  }
-  else if(pid > 0) {
-    close(pipefd[0]);
-    printf("Enter a string consisting of 5 and 7: ");
-    fgets(buffer, BUFFER_SIZE, stdin);
-    write(pipefd[1], buffer, strlen(buffer)+1);
-    close(pipefd[1]);
-    wait(pid);
-  }
-  else {
-    close(pipefd[1]);
-    read(pipefd[0], buffer, sizeof(buffer));
-    printf("Recevied string in pplayer2.c: %s", buffer);
-    close(pipefd[0]);
-  }
-  return 0;
+	if(pid < 0) {
+		printf("Error with pipe");
+		return 2;
+	}
+	else if(pid > 0) {
+		close(pipefd[0]);
+		printf("Enter a string consisting of 5 and 7: ");
+		fgets(buffer, BUFFER_SIZE, stdin);
+		while(checkString(buffer) > 0) {
+			printf("Invalid string, enter another one: ");
+			fgets(buffer, BUFFER_SIZE, stdin);
+		}
+		write(pipefd[1], buffer, strlen(buffer)+1);
+		close(pipefd[1]);
+		wait(pid);
+	}
+	else {
+		close(pipefd[1]);
+		read(pipefd[0], buffer, sizeof(buffer));
+		printf("Recevied string in player2.c: %s", buffer);
+		close(pipefd[0]);
+	}
+	return 0;
 }
