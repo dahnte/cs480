@@ -69,14 +69,34 @@ int checkString(char *string) {
  */
 
 char *cutString(char *string) {
-	int set_num = 0;
+	int set_num = 1;
 	char key = '\0';
-	printf("Which of the following sets would you like to remove?: ");
-	for(int i = 0; string[i] != '\0'; i++) {
-		
-		
+	int index_choice[STRING_LIMIT - 1]; /* does not need to account for '\n' */
+	printf("Which set would you like to remove?\n");
+	for(int i = 0, j = 0; (string[i] != '\0') && (string[i] != '\n'); i = j) {
+		key = string[i];
+		printf("[%d]", set_num++);
+		index_choice[set_num - 1] = i; /* for the sake of UI, the index begins at 1 */
+		for(j = i; string[j] == key; j++) {
+			printf("%c", string[j]);
+		}
+		printf(" ");
 	}
- }
+
+	int set_choice = 0;
+	printf("\nEnter the number of the set: ");
+	scanf("%d", set_choice);
+	int temp = index_choice[set_choice] - index_choice[set_choice - 1]; /* a tad bit confusing aint it */
+	for(int i_rev = (strlen(string) - 1), j_rev; temp > 0; i_rev--) {
+		for(j_rev = i_rev; j_rev > index_choice[set_choice - 1]; j_rev--) {
+			string[j_rev - 1] = string[j_rev];
+			string[j_rev] = '\0';
+			printf("From cutString: %s", string);
+		}
+		temp--;
+	}
+	return string;
+}
 
 int main() {
 	int pipefd[2];
@@ -94,12 +114,13 @@ int main() {
 	}
 	else if(pid > 0) { /* parent process */
 		close(pipefd[READ_END]);
-		printf("Enter a string consisting of 5 and 7 that is less than 16 characters: ");
+		printf("Enter a string that's less than 16 characters and contains '5' and '7': ");
 		fgets(buffer, BUFFER_SIZE, stdin);
 		while(checkString(buffer) > 0) { /* begin invalid string loop */ 
 			printf("Invalid string, try again: ");
 			fgets(buffer, BUFFER_SIZE, stdin);
 		}
+		cutString(buffer);
 		write(pipefd[WRITE_END], buffer, strlen(buffer)+1);
 		close(pipefd[WRITE_END]);
 	}
@@ -109,6 +130,5 @@ int main() {
 		printf("Recevied string in player2.c: %s", buffer);
 		close(pipefd[READ_END]);
 	}
-
 	return 0;
 }
