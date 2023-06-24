@@ -49,7 +49,7 @@ void removeNonAlphabetChar(char *line) {
 			for(j = i; line[j] != '\0'; ++j) {
 				line[j] = line[j + 1];
 			}
-		line[j] = '\0';
+			line[j] = '\0';
 		}
 	}
 }
