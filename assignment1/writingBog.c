@@ -11,7 +11,7 @@
 #include <ctype.h>
 
 /*
- * void charWriteFile
+ * void charWriteFile ( const char *file_read, const char *file_write )
  *
  *  file_read: Name of file to be read from
  *  file_write: Name of file to be written to
@@ -34,14 +34,14 @@ void charWriteFile(const char *file_read, const char *file_write) {
 }
 
 /*
- * void removeNonAlphabetChar
+ * void removeNonAlphabetChar ( char *line )
  *
  *  line: A pointer to the buffer holding current line read from file
  *
  *  side-effect: Reads line character by character and removes non-alphabetical characters by copying over the next alphbetical character. Runs until it reaches the '\0' delim.
  */
 
-void removeNonAlphabetChar(char * line) {
+void removeNonAlphabetChar(char *line) {
 	for(int i = 0, j; line[i] != '\0'; ++i) {
 		while((line[i] < 'A' || line[i] > 'Z')
 		&& (line[i] < 'a' || line[i] > 'z')
@@ -55,7 +55,7 @@ void removeNonAlphabetChar(char * line) {
 }
 
 /*
- * void lineWriteFile
+ * void lineWriteFile ( const char *file_read, const char *file_write )
  *
  *  file_read: Name of file to be read from
  *  file_write: Name of file to be written to
@@ -80,7 +80,7 @@ void lineWriteFile(const char *file_read, const char *file_write) {
 }
 
 /*
- * int diffFile
+ * int diffFile ( const char *file_comp1, const char *file_comp2 )
  *
  *  file_comp1: Name of file to be compared to file_comp2
  *  file_comp2: Name of file to be compared to file_comp1
@@ -102,7 +102,7 @@ int diffFile(const char *file_comp1, const char *file_comp2) {
 }
 
 /*
- * int upperCaseCount
+ * int upperCaseCount ( const char *file_read )
  *
  *  file_read: Name of file to be read from and have upper case counted
  *
