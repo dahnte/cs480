@@ -58,7 +58,7 @@ int main() {
 	else if(pid == 0) { /* child process */
 		close(pipefd[WRITE_END]);
 		read(pipefd[READ_END], buffer, sizeof(buffer));
-		printf("Received string in player2.c: %s\n", buffer);
+		printf("Received string in player2.c: %s", buffer);
 		close(pipefd[READ_END]);
 	}
 	return 0;
@@ -100,7 +100,7 @@ int checkString(char *string) {
 /*
  * void getString ( char * string )
  *
- *	side-effect: gets user inputted string, invokes checkStrine(string) to make sure its valid
+ *	side-effect: gets user inputted string, invokes checkString to make sure its valid
  */
 
 void getString(char *string) {
@@ -121,8 +121,6 @@ void getString(char *string) {
 
 void storeSubstring(char *string, int *index_choice, int *substr_amount) {
 	char key = '\0';
-
-	printf("Which set would you like to remove?\n");
 
 	for(int i = 0, j = 0; (string[i] != '\0') && (string[i] != '\n'); i = j) { /* begin string loop */
 		key = string[i]; /* character that will be looked for consecutively */
@@ -150,32 +148,40 @@ void storeSubstring(char *string, int *index_choice, int *substr_amount) {
 char *cutString(char *string) {
 	int substr_choice = 0; /* contains substring number user wants to remove */
 	int substr_amount = 0; /* holds how many substrings there are within string + 1 */
-	int substr_length = 0; /* holds the length of substring to remove */
-	int index_choice[STRING_LIMIT - 1]; /* acsubstr_length for \n */
+	int substr_length = 0; /* holds the length of substring */
+	int index_choice[STRING_LIMIT - 1]; 
 
 	storeSubstring(string, index_choice, &substr_amount); 
-	printf("\nEnter the number of the set: ");
+	printf("\nWhich substring would you like to remove? ");
 	scanf("%d", &substr_choice);
 
-	while((substr_choice > substr_amount - 1) || (substr_choice < 0)) { /* begin invalid set decision loop */
-		printf("Invalid set entry, try again: ");
+	while((substr_choice > substr_amount - 1) || (substr_choice < 0)) { /* invalid decision if greater/less than given options */
+		printf("Invalid substring entry, try again: ");
 		scanf("%d", &substr_choice);
 	}
 
+	printf("How much would you like to reduce its length? ");
+	scanf("%d", &substr_length);
+
 	if(substr_choice == 0) {
-		substr_length = index_choice[substr_choice] + 1;
+		while((substr_length > (index_choice[substr_choice] + 1)) || (substr_length < 1)) {
+			printf("Invalid reduction length, try again: ");
+			scanf("%d", &substr_length);
+		}
 	}
 	else {
-		substr_length = index_choice[substr_choice] - index_choice[substr_choice - 1];
+		while((substr_length > (index_choice[substr_choice] - index_choice[substr_choice - 1])) || (substr_length < 1))  { /* invalid length if greater/less than max length of substr */
+			printf("Invalid reduction length, try again: ");
+			scanf("%d", &substr_length);
+		}
 	}
-
 	//printf("debug2: %d\n", substr_length);
 
 	for(int i = index_choice[substr_choice], j = i; substr_length > 0; substr_length--, i--, j = i) {
 		if(substr_choice == substr_amount - 1) { /* removing the last set case */	
 			string[i] = '\0';
 		}
-		else { /* otherwise they should copy over everything untill current position is '\0'*/
+		else { /* otherwise they should copy over everything until current position is '\0'*/
 			while(string[j] != '\0') {
 				string[j] = string[j + 1];
 				j++;
