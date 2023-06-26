@@ -29,6 +29,41 @@
 #define STRING_LIMIT 17 /* must acsubstr_length for '\n' */
 #define BUFFER_SIZE 256 /* adjusted for spammed characters, as of now this works fine */
 
+int checkString(char *string);
+void getString(char *string);
+void storeSubstring(char *string, int *index_choice, int *substr_amount);
+char *cutString(char *string);
+
+int main() {
+	int pipefd[2];
+	pid_t pid;
+	char buffer[BUFFER_SIZE];
+
+	if(pipe(pipefd) == -1) { /* create pipe */
+		printf("Error creating pipe");
+		return 1;
+	}
+
+	if((pid = fork()) == -1) { /* get pid from fork */
+		printf("Error with pipe");
+		return 2;
+	}
+	else if(pid > 0) { /* parent process */
+		close(pipefd[READ_END]);
+		getString(buffer);	
+		cutString(buffer);
+		write(pipefd[WRITE_END], buffer, strlen(buffer)+1);
+		close(pipefd[WRITE_END]);
+	}
+	else if(pid == 0) { /* child process */
+		close(pipefd[WRITE_END]);
+		read(pipefd[READ_END], buffer, sizeof(buffer));
+		printf("Received string in player2.c: %s\n", buffer);
+		close(pipefd[READ_END]);
+	}
+	return 0;
+}
+
 /* 
  * int checkString ( char *string )
  *
@@ -66,24 +101,25 @@ int checkString(char *string) {
  * void getString ( char * string )
  *
  *	side-effect: gets user inputted string, invokes checkStrine(string) to make sure its valid
-*/
+ */
 
 void getString(char *string) {
 	printf("Enter a string that's less than 16 characters and ONLY contains '5' and '7': ");
 	fgets(string, BUFFER_SIZE, stdin);
-	while(checkString(string) > 0) { /* begin invalid string loop */ 
+
+	while(checkString(string) > 0) { /* begin invalid string loop */
 		printf("Invalid string, try again: ");
 		fgets(string, BUFFER_SIZE, stdin);
-	}
+	} 
 }
 
 /*
- * void storeStringSet ( char *string, int *index_choice )
+ * void storeSubstring ( char *string, int *index_choice )
  *
  * 	side-effect: fills int array with indices containing position of last char in each substring found
  */
 
-void storeStringSet(char *string, int *index_choice, int *substr_amount) {
+void storeSubstring(char *string, int *index_choice, int *substr_amount) {
 	char key = '\0';
 
 	printf("Which set would you like to remove?\n");
@@ -117,7 +153,7 @@ char *cutString(char *string) {
 	int substr_length = 0; /* holds the length of substring to remove */
 	int index_choice[STRING_LIMIT - 1]; /* acsubstr_length for \n */
 
-	storeStringSet(string, index_choice, &substr_amount); 
+	storeSubstring(string, index_choice, &substr_amount); 
 	printf("\nEnter the number of the set: ");
 	scanf("%d", &substr_choice);
 
@@ -150,34 +186,4 @@ char *cutString(char *string) {
 	//printf("debug3: %s", string);
 
 	return string;
-}
-
-int main() {
-	int pipefd[2];
-	pid_t pid;
-	char buffer[BUFFER_SIZE];
-
-	if(pipe(pipefd) == -1) { /* create pipe */
-		printf("Error creating pipe");
-		return 1;
-	}
-
-	if((pid = fork()) == -1) { /* get pid from fork */
-		printf("Error with pipe");
-		return 2;
-	}
-	else if(pid > 0) { /* parent process */
-		close(pipefd[READ_END]);
-		getString(buffer);	
-		cutString(buffer);
-		write(pipefd[WRITE_END], buffer, strlen(buffer)+1);
-		close(pipefd[WRITE_END]);
-	}
-	else if(pid == 0) { /* child process */
-		close(pipefd[WRITE_END]);
-		read(pipefd[READ_END], buffer, sizeof(buffer));
-		printf("Received string in player2.c: %s\n", buffer);
-		close(pipefd[READ_END]);
-	}
-	return 0;
 }
