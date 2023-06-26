@@ -26,7 +26,7 @@
 #include <unistd.h>
 #define READ_END 0
 #define WRITE_END 1
-#define STRING_LIMIT 17 /* must acsubstr_length for '\n' */
+#define STRING_LIMIT 17 /* must account for '\n' */
 #define BUFFER_SIZE 256 /* adjusted for spammed characters, as of now this works fine */
 
 int checkString(char *string);
@@ -137,6 +137,7 @@ void storeSubstring(char *string, int *index_choice, int *substr_amount) {
 
 		*substr_amount = *substr_amount + 1; /* interesting behavior when using *substr_amount++ */
 	}
+	printf("\n");
 }
 
 /*
@@ -152,7 +153,7 @@ char *cutString(char *string) {
 	int index_choice[STRING_LIMIT - 1]; 
 
 	storeSubstring(string, index_choice, &substr_amount); 
-	printf("\nWhich substring would you like to remove? ");
+	printf("Enter [position] of substring you would like to remove: ");
 	scanf("%d", &substr_choice);
 
 	while((substr_choice > substr_amount - 1) || (substr_choice < 0)) { /* invalid decision if greater/less than given options */
@@ -160,7 +161,7 @@ char *cutString(char *string) {
 		scanf("%d", &substr_choice);
 	}
 
-	printf("How much would you like to reduce its length? ");
+	printf("Enter amount to reduce substring's length by: ");
 	scanf("%d", &substr_length);
 
 	if(substr_choice == 0) {
