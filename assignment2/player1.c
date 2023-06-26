@@ -26,20 +26,20 @@
 #include <unistd.h>
 #define READ_END 0
 #define WRITE_END 1
-#define STRING_LIMIT 17 /* must account for '\n' */
+#define STRING_LIMIT 17 /* must acsubstr_length for '\n' */
 #define BUFFER_SIZE 256 /* adjusted for spammed characters, as of now this works fine */
 
 /* 
  * int checkString ( char *string )
  *
  *  return >0: for how many characters are not '5' or '7' OR if string length is over 17 OR if the string does not contain both '5' AND '7'
- *	return 0: if string contains only '5' AND '7' and is below the 17 char count
+ *	return 0: if string contains only '5' AND '7' and is below the 17 char substr_length
  */
 
 int checkString(char *string) {
 	int check = 0;
-	int five_count = 0;
-	int seven_count = 0;
+	int five_substr_length = 0;
+	int seven_substr_length = 0;
 
 	for(int i = 0; string[i] != '\0' && string[i] != '\n'; i++) { /* fgets looks for '\n' */
 		if((strlen(string) > STRING_LIMIT) 
@@ -47,18 +47,61 @@ int checkString(char *string) {
 			check++;
 		}
 		else if(string[i] == '5') {
-			five_count++;
+			five_substr_length++;
 		}
 		else if(string[i] == '7') {
-			seven_count++;
+			seven_substr_length++;
 		}
 	}
 
-	if(five_count > 0 && seven_count > 0) { /* this will ensure we return 0 ONLY if the string contains '5' AND '7' */
+	if(five_substr_length > 0 && seven_substr_length > 0) { /* this will ensure we return 0 ONLY if the string contains '5' AND '7' */
 		return check;
 	}
 	else { /* otherwise even if string is only '5' or '7' it will throw a number >0 */
-		return check + five_count + seven_count;
+		return check + five_substr_length + seven_substr_length;
+	}
+}
+
+/*
+ * void getString ( char * string )
+ *
+ *	side-effect: gets user inputted string, invokes checkStrine(string) to make sure its valid
+*/
+
+void getString(char *string) {
+	printf("Enter a string that's less than 16 characters and ONLY contains '5' and '7': ");
+	fgets(string, BUFFER_SIZE, stdin);
+	while(checkString(string) > 0) { /* begin invalid string loop */ 
+		printf("Invalid string, try again: ");
+		fgets(string, BUFFER_SIZE, stdin);
+	}
+}
+
+/*
+ * void storeStringSet ( char *string, int *index_choice )
+ *
+ * 	side-effect: fills int array with indices containing position of last char in each substring found
+ */
+
+void storeStringSet(char *string, int *index_choice, int *substr_amount) {
+	char key = '\0';
+
+	printf("Which set would you like to remove?\n");
+
+	for(int i = 0, j = 0; (string[i] != '\0') && (string[i] != '\n'); i = j) { /* begin string loop */
+		key = string[i]; /* character that will be looked for consecutively */
+		printf("[%d]", *substr_amount);
+
+		for(j = i; string[j] == key; j++) { /* print consecutive strings */
+			printf("%c", string[j]);
+		}
+
+		index_choice[*substr_amount] = j - 1; /* adjust for substring's ending and not start of next substring */
+		printf(" ");
+
+		//printf("\ndebug1: %d and %d\n", index_choice[*substr_amount], *substr_amount);
+
+		*substr_amount = *substr_amount + 1; /* interesting behavior when using *substr_amount++ */
 	}
 }
 
@@ -69,32 +112,43 @@ int checkString(char *string) {
  */
 
 char *cutString(char *string) {
-	int set_num = 1;
-	char key = '\0';
-	int index_choice[STRING_LIMIT - 1]; /* does not need to account for '\n' */
-	printf("Which set would you like to remove?\n");
-	for(int i = 0, j = 0; (string[i] != '\0') && (string[i] != '\n'); i = j) {
-		key = string[i];
-		printf("[%d]", set_num++);
-		index_choice[set_num - 1] = i; /* for the sake of UI, the index begins at 1 */
-		for(j = i; string[j] == key; j++) {
-			printf("%c", string[j]);
-		}
-		printf(" ");
+	int substr_choice = 0; /* contains substring number user wants to remove */
+	int substr_amount = 0; /* holds how many substrings there are within string + 1 */
+	int substr_length = 0; /* holds the length of substring to remove */
+	int index_choice[STRING_LIMIT - 1]; /* acsubstr_length for \n */
+
+	storeStringSet(string, index_choice, &substr_amount); 
+	printf("\nEnter the number of the set: ");
+	scanf("%d", &substr_choice);
+
+	while((substr_choice > substr_amount - 1) || (substr_choice < 0)) { /* begin invalid set decision loop */
+		printf("Invalid set entry, try again: ");
+		scanf("%d", &substr_choice);
 	}
 
-	int set_choice = 0;
-	printf("\nEnter the number of the set: ");
-	scanf("%d", set_choice);
-	int temp = index_choice[set_choice] - index_choice[set_choice - 1]; /* a tad bit confusing aint it */
-	for(int i_rev = (strlen(string) - 1), j_rev; temp > 0; i_rev--) {
-		for(j_rev = i_rev; j_rev > index_choice[set_choice - 1]; j_rev--) {
-			string[j_rev - 1] = string[j_rev];
-			string[j_rev] = '\0';
-			printf("From cutString: %s", string);
-		}
-		temp--;
+	if(substr_choice == 0) {
+		substr_length = index_choice[substr_choice] + 1;
 	}
+	else {
+		substr_length = index_choice[substr_choice] - index_choice[substr_choice - 1];
+	}
+
+	//printf("debug2: %d\n", substr_length);
+
+	for(int i = index_choice[substr_choice], j = i; substr_length > 0; substr_length--, i--, j = i) {
+		if(substr_choice == substr_amount - 1) { /* removing the last set case */	
+			string[i] = '\0';
+		}
+		else { /* otherwise they should copy over everything untill current position is '\0'*/
+			while(string[j] != '\0') {
+				string[j] = string[j + 1];
+				j++;
+			}
+		}
+	}
+
+	//printf("debug3: %s", string);
+
 	return string;
 }
 
@@ -114,12 +168,7 @@ int main() {
 	}
 	else if(pid > 0) { /* parent process */
 		close(pipefd[READ_END]);
-		printf("Enter a string that's less than 16 characters and contains '5' and '7': ");
-		fgets(buffer, BUFFER_SIZE, stdin);
-		while(checkString(buffer) > 0) { /* begin invalid string loop */ 
-			printf("Invalid string, try again: ");
-			fgets(buffer, BUFFER_SIZE, stdin);
-		}
+		getString(buffer);	
 		cutString(buffer);
 		write(pipefd[WRITE_END], buffer, strlen(buffer)+1);
 		close(pipefd[WRITE_END]);
@@ -127,7 +176,7 @@ int main() {
 	else if(pid == 0) { /* child process */
 		close(pipefd[WRITE_END]);
 		read(pipefd[READ_END], buffer, sizeof(buffer));
-		printf("Recevied string in player2.c: %s", buffer);
+		printf("Received string in player2.c: %s\n", buffer);
 		close(pipefd[READ_END]);
 	}
 	return 0;
