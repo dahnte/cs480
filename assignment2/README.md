@@ -1,5 +1,5 @@
 # ASSIGNMENT 2
-## A GAME OF PIPES
+### A GAME OF PIPES
 
 To compile the game properly you need to run these two commands:
 
