@@ -6,12 +6,12 @@ Run these two commands in the _assignment2_ file:
 
 `gcc player2.c stringGame.c -o player2 -std=c99`
 
-Run `player1` first and then `player2` on a separate terminal.
+Run _player1_ first and then _player2_ on a separate terminal.
 
 TODO LIST:
 - Strategy and techniques
 - Makefile
 
 Known bugs:
-- Entering more than 16 characters as `player1` causes strange behavior
+- Entering more than 16 characters as _player1_ causes strange behavior
 - Entering more than 1 character during editting as either player also causes strange behavior
