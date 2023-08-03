@@ -1,6 +1,6 @@
 # ASSIGNMENT 2 - A GAME OF PIPES
 
-To play you need to run these two commands in the _assignment2_ file:
+Run these two commands in the _assignment2_ file:
 
 `gcc player1.c stringGame.c -o player1 -std=c99`
 
