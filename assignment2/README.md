@@ -6,7 +6,7 @@ Run these two commands in the _assignment2_ file:
 
 `gcc player2.c stringGame.c -o player2 -std=c99`
 
-When you're ready to start playing begin by running `player1` first and then `player2`
+To play run `player1` first and then `player2` on a separate terminal.
 
 TODO LIST:
 - Strategy and techniques
