@@ -54,7 +54,7 @@ int main(int argc, char **argv) {
 		editString(string);
 
 		if(result = checkString(string, argv[0]) != 2) {
-			write_fd = open(P2WRITE, O_WRONLY);
+			write_fd = open(P1WRITE, O_WRONLY);
 			if(write_fd == -1) {
 				fprintf(stderr, "Failed to open pipe for writing\n");
 				return 1;
