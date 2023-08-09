@@ -16,7 +16,7 @@ Once both programs are running simultaneously, `player1` will be asked to write 
 - Contains at least two 7's 
 - The length of the string is between 4 - 16 characters 
 
-How to win: Be the player to make the final edit and remove the last bit of the string.
+To win you must be the player to make the final edit and remove the last bit of the string.
 - During gameplay try to maintain an odd amount of indicies
 - Try to break up indicies with only 1 character in them by removing the index
   between them
