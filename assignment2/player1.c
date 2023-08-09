@@ -9,8 +9,8 @@
 #include "stringGame.h" 
 
 int main(int argc, char **argv) {
-    char *string = malloc(sizeof(char) * STRING_LIMIT);
-	memset(string, 0 , STRING_LIMIT);
+    char *string = malloc(sizeof(char) * BUFFER_SIZE);
+	memset(string, 0 , BUFFER_SIZE);
     int result = 0;
 	int write_fd;
 	int read_fd;
@@ -30,7 +30,7 @@ int main(int argc, char **argv) {
 			fprintf(stderr, "Failed to open pipe for writing\n");
 			return 1;
 		}
-		if(write(write_fd, string, sizeof(char) * STRING_LIMIT) == -1) {
+		if(write(write_fd, string, sizeof(char) * BUFFER_SIZE) == -1) {
 			fprintf(stderr, "Failed to write to pipe\n");
 			return 1;
 		}
@@ -41,7 +41,7 @@ int main(int argc, char **argv) {
 			fprintf(stderr, "Failed to open pipe for reading\n");
 			return 1;
 		}
-		if(read(read_fd, string, sizeof(char) * STRING_LIMIT) == -1) {
+		if(read(read_fd, string, sizeof(char) * BUFFER_SIZE) == -1) {
 			fprintf(stderr, "Failed to read from pipe\n");
 			return 1;
 		}
@@ -59,7 +59,7 @@ int main(int argc, char **argv) {
 				fprintf(stderr, "Failed to open pipe for writing\n");
 				return 1;
 			}
-			if(write(write_fd, string, sizeof(char) * STRING_LIMIT) == -1) {
+			if(write(write_fd, string, sizeof(char) * BUFFER_SIZE) == -1) {
 				fprintf(stderr, "Failed to write to pipe\n");
 				return 1;
 			}
