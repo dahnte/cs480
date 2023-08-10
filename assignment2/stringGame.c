@@ -26,6 +26,14 @@
 #include <errno.h> /* errno */
 #include "stringGame.h"
 
+void gameIntro() {
+	fprintf(stdout, "\n ___   ___     ___   _   ___   ___    __  \n");
+	fprintf(stdout, "| __| |_  |   | _,\\ | | | _,\\ | __| /' _/ \n");
+	fprintf(stdout, "`._`.  / /    | v_/ | | | v_/ | _|  `._`. \n");
+	fprintf(stdout, "!__.' |_/     |_|   |_| |_|   |___| |___/ \n");
+	fprintf(stdout, "\n");
+}
+
 /*	`clearInputBuffer` is a helper function inside `editString`
  *	used to simplify clearing the buffer process.
  *	Prevents characters being wrongly accepted as input from overflow.

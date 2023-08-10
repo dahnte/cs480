@@ -21,6 +21,8 @@ int main(int argc, char **argv) {
 		return 1;
 	}
 
+	gameIntro();
+
     /* begin main game loop! */
 	while(1) {
 		read_fd = open(P1WRITE, O_RDONLY);

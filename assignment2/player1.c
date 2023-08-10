@@ -21,6 +21,7 @@ int main(int argc, char **argv) {
 		return 1;
 	}
 
+	gameIntro();
     getString(string);
 
     /* begin main game loop! */

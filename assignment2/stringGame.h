@@ -8,6 +8,7 @@
 #define P1WRITE "/tmp/P1WRITE"
 #define P2WRITE "/tmp/P2WRITE"
 
+void gameIntro();
 void clearInputBuffer(); 
 void getInteger(int *integer_buffer, int buffer_size);
 void getString(char *string);
