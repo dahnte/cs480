@@ -198,12 +198,12 @@ void editString(char *string) {
 
 int checkString(char *string, char *player_name) {
 	if((string[0] == '\n')) {
-		fprintf(stdout, "%s won the game!\n");
+		fprintf(stdout, "%s won the game!\n", player_name);
 		string[0] = '1';
 		return 0;
 	}	
 	else if(string[0] == '1') {
-		fprintf(stdout, "%s lost the game!\n");
+		fprintf(stdout, "%s lost the game!\n", player_name);
 		return 1;
 	}
 	else {
