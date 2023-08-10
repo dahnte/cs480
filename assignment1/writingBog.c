@@ -1,22 +1,20 @@
-/*
- * Author: Dante Cardenas
- * June 12, 2023
- * CS480 - Advanced Topics in Computing
+R** Author: Dante Cardenas
+ *	June 12, 2023
+ *	CS480 - Advanced Topics in Computing
  *
- * File contains my solution to assignment 1. Each function is preceded with a comment that exaplains its process.
+ *	File contains my solution to assignment 1. Each function is preceded with a comment that exaplains its process.
  */
 
 #include <stdio.h>
 #include <stdlib.h>
 #include <ctype.h>
 
-/*
- * void charWriteFile ( const char *file_read, const char *file_write )
+/** charWriteFile() - Write to a file char by char if given a file to read from char by char
  *
- *  file_read: Name of file to be read from
- *  file_write: Name of file to be written to
+ *  @file_read: Name of file to be read from
+ *  @file_write: Name of file to be written to
  *
- *  side-effect: Reads from file_read, character by character, and writes into file_write, character by character.
+ *  Reads from file_read, character by character, and writes into file_write, character by character.
  *  Writes to terminal if successful.
  */
 
@@ -33,12 +31,11 @@ void charWriteFile(const char *file_read, const char *file_write) {
 	}
 }
 
-/*
- * void removeNonAlphabetChar ( char *line )
+/** removeNonAlphabetChar()
  *
- *  line: A pointer to the buffer holding current line read from file
+ *  @line: A pointer to the buffer holding current line read from file
  *
- *  side-effect: Reads line character by character and removes non-alphabetical characters by copying over the next alphbetical character. Runs until it reaches the '\0' delim.
+ *  Reads line character by character and removes non-alphabetical characters by copying over the next alphbetical character. Runs until it reaches the '\0' delim.
  */
 
 void removeNonAlphabetChar(char *line) {
@@ -54,13 +51,12 @@ void removeNonAlphabetChar(char *line) {
 	}
 }
 
-/*
- * void lineWriteFile ( const char *file_read, const char *file_write )
+/** lineWriteFile()
  *
- *  file_read: Name of file to be read from
- *  file_write: Name of file to be written to
+ *  @file_read: Name of file to be read from
+ *  @file_write: Name of file to be written to
  *
- *  side-effect: Reads from file_read line by line until failure or EOF condition.
+ *  Reads from file_read line by line until failure or EOF condition.
  *  While getline is active, the current buffer is then passed to removeNonAlphabetChar.
  *  Once the buffer has been processed it is then written to file_write. Writes to terminal if sucessful.
  */
@@ -79,13 +75,12 @@ void lineWriteFile(const char *file_read, const char *file_write) {
 	}
 }
 
-/*
- * int diffFile ( const char *file_comp1, const char *file_comp2 )
+/** diffFile()
  *
- *  file_comp1: Name of file to be compared to file_comp2
- *  file_comp2: Name of file to be compared to file_comp1
+ *  @file_comp1: Name of file to be compared to file_comp2
+ *  @file_comp2: Name of file to be compared to file_comp1
  *
- *  return: Returns an int representing the number of characters that are different between two files
+ *  Returns an int representing the number of characters that are different between two files
  */
 
 int diffFile(const char *file_comp1, const char *file_comp2) {
@@ -101,12 +96,11 @@ int diffFile(const char *file_comp1, const char *file_comp2) {
 //pclose(prompt);
 }
 
-/*
- * int upperCaseCount ( const char *file_read )
+/** upperCaseCount()
  *
- *  file_read: Name of file to be read from and have upper case counted
+ *  @file_read: Name of file to be read from and have upper case counted
  *
- *  return: Number of upper case characters
+ *  Returns a number of upper case characters
  */
 
 int upperCaseCount(const char *file_read) {

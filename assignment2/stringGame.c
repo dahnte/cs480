@@ -34,18 +34,21 @@ void gameIntro() {
 	fprintf(stdout, "\n");
 }
 
-/*	`clearInputBuffer` is a helper function inside `editString`
- *	used to simplify clearing the buffer process.
- *	Prevents characters being wrongly accepted as input from overflow.
+/**	clearInputBuffer() - is a helper function inside editString()
+ *
+ *	Prevents characters being wrongly accepted as input from overflow
  */
 void clearInputBuffer() {
 	char c = 0;
 	while ((c = getchar()) != '\n' && c != EOF);
 }
 
-/*	`getInt` is a helper function inside `editString`
- *	used to ensure proper handling of integer input.
- *	Handles overflow and invalid input.
+/**	getInt() is a helper function inside editString()
+ *
+ *	@integer_buffer: 
+ *	@buffer_size: 
+ *
+ *	Handles overflow and invalid input
  */
 void getInteger(int *integer_buffer, int buffer_size) {
 	char *input_buffer = malloc(sizeof(char) * buffer_size);
@@ -82,7 +85,10 @@ void getInteger(int *integer_buffer, int buffer_size) {
 	free(input_buffer);
 }
 
-/* 	`getString` only handles the start game mechanic.
+/** getString() - Handles the start game mechanic
+ *
+ *	@string: Input received from player1.c
+ *
  *	It asks the user for input via `fgets` and then checks it to make sure 
  *	it only contains 5 and 7 and is below the 16 character limit.
  */
@@ -134,7 +140,10 @@ void getString(char *string) {
 	}
 }
 
-/*	`editString` handles the main gameplay mechanic.
+/**	editString() - handles the main gameplay mechanic.
+ *
+ *	@string: Input from previous player, only contains 5's and 7's
+ *
  *	Users input the index of the substring they would like to edit and
  *	the amount of characters they would like to remove for the chosen substring.
  */
@@ -204,7 +213,14 @@ void editString(char *string) {
 	//printf("[DEBUG]: %s", string);
 }
 
-int checkString(char *string, char *player_name) {
+/** checkWinCondition() - Handles the win conditions
+ *
+ *	@string: Input from received from previous players, may be 'empty' at this point
+ *	@player_name: Holds the player's name to be included in the result message
+ *
+ *	Return 0 if a player won and return 1 if a player lost
+ */
+int checkWinCondition(char *string, char *player_name) {
 	if((string[0] == '\n')) {
 		fprintf(stdout, "%s won the game!\n", player_name);
 		string[0] = '1';
@@ -212,9 +228,7 @@ int checkString(char *string, char *player_name) {
 	}	
 	else if(string[0] == '1') {
 		fprintf(stdout, "%s lost the game!\n", player_name);
-		return 1;
+		return 0;
 	}
-	else {
-		return 2;
-	}
+	else { return 1; }
 }

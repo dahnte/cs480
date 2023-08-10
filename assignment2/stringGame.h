@@ -13,6 +13,6 @@ void clearInputBuffer();
 void getInteger(int *integer_buffer, int buffer_size);
 void getString(char *string);
 void editString(char *string);
-int checkString(char *string, char *player_name);
+int checkWinCondition(char *string, char *player_name);
 
 #endif

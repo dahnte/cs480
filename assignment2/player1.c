@@ -48,13 +48,13 @@ int main(int argc, char **argv) {
 		}
 		close(read_fd);
 
-		if(result = checkString(string, argv[0]) != 2) {
+		if(result = checkWinCondition(string, argv[0]) != 1) {
 			break;
 		}
 
 		editString(string);
 
-		if(result = checkString(string, argv[0]) != 2) {
+		if(result = checkWinCondition(string, argv[0]) != 1) {
 			write_fd = open(P1WRITE, O_WRONLY);
 			if(write_fd == -1) {
 				fprintf(stderr, "Failed to open pipe for writing\n");
