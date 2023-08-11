@@ -1,4 +1,4 @@
-# cs480 - Advanced Topics in Computing
+# CS480 - Linux Programming
 The process of completing CS480's assignments and labs with the help of git version control!
 
 Course Book: *Beginning Linux Programming 4th Edition (Matthew and Stones)*

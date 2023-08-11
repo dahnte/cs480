@@ -8,7 +8,7 @@ To compile the game run these two commands:
 
 `gcc player2.c stringGame.c -o player2 -std=c99`
 
-Begin the game by running `player1` followed by `player2` on separate terminal instances
+Begin the game by running `player1` followed by `player2` on separate terminal instances.
 
 ### Game Rules & Strategy
 Once both programs are running simultaneously `player1` will be asked to write a string. The string must follow these rules:
