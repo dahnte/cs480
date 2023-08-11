@@ -2,13 +2,13 @@
 
 
 ### Compilation
-To compile the game you need to run these two commands:
+To compile the game run these two commands:
 
 `gcc player1.c stringGame.c -o player1 -std=c99`
 
 `gcc player2.c stringGame.c -o player2 -std=c99`
 
-To start playing first run `player1` and then `player2` on a separate terminal
+Begin the game by running `player1` followed by `player2` on separate terminal instances
 
 ### Game Rules & Strategy
 Once both programs are running simultaneously, `player1` will be asked to write a string. The string must follow these rules:
