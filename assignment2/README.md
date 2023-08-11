@@ -11,10 +11,10 @@ To compile the game run these two commands:
 Begin the game by running `player1` followed by `player2` on separate terminal instances
 
 ### Game Rules & Strategy
-Once both programs are running simultaneously, `player1` will be asked to write a string. The string must follow these rules:
-- Contains no other characters besides 5 and 7
-- Contains at least two 5's
-- Contains at least two 7's 
+Once both programs are running simultaneously `player1` will be asked to write a string. The string must follow these rules:
+- Consists of only 5's and 7's
+  - Contains at least two 5's
+  - Contains at least two 7's 
 - The length of the string is between 4 - 16 characters 
 
 To win you must be the player to make the final edit and remove the last bit of the string.
