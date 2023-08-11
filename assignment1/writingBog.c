@@ -1,4 +1,4 @@
-R** Author: Dante Cardenas
+/** Author: Dante Cardenas
  *	June 12, 2023
  *	CS480 - Advanced Topics in Computing
  *
