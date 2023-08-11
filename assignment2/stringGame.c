@@ -27,11 +27,13 @@
 #include "stringGame.h"
 
 void gameIntro() {
-	fprintf(stdout, "\n ___   ___     ___   _   ___   ___    __  \n");
-	fprintf(stdout, "| __| |_  |   | _,\\ | | | _,\\ | __| /' _/ \n");
-	fprintf(stdout, "`._`.  / /    | v_/ | | | v_/ | _|  `._`. \n");
-	fprintf(stdout, "!__.' |_/     |_|   |_| |_|   |___| |___/ \n");
-	fprintf(stdout, "\n");
+	fprintf(stdout, "\n ____ _____   ____  _                 \n");
+	fprintf(stdout, "| ___|___  | |  _ \\(_)_ __   ___  ___ \n");
+	fprintf(stdout, "|___ \\  / /  | |_) | | '_ \\ / _ \\/ __|\n");
+	fprintf(stdout, " ___) |/ /   |  __/| | |_) |  __/\\__ \\\n");
+	fprintf(stdout, "|____//_/    |_|   |_| .__/ \\___||___/\n");
+	fprintf(stdout, "                     |_|              \n");
+	fprintf(stdout, "A two-player string manipulation game\n\n");
 }
 
 /**	clearInputBuffer() - is a helper function inside editString()
@@ -222,12 +224,12 @@ void editString(char *string) {
  */
 int checkWinCondition(char *string, char *player_name) {
 	if((string[0] == '\n')) {
-		fprintf(stdout, "%s won the game!\n", player_name);
+		fprintf(stdout, "%s won the game! Good job.\n", player_name);
 		string[0] = '1';
 		return 0;
 	}	
 	else if(string[0] == '1') {
-		fprintf(stdout, "%s lost the game!\n", player_name);
+		fprintf(stdout, "%s lost the game! Better luck next time.\n", player_name);
 		return 0;
 	}
 	else { return 1; }

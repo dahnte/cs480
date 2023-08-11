@@ -1,4 +1,5 @@
-# 57 PIPES (Assignment 2)
+# 57 Pipes - A two-player string manipulation game
+
 
 ### Compilation
 To compile the game you need to run these two commands:
