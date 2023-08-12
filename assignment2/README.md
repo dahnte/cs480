@@ -11,7 +11,7 @@ Once both programs are running simultaneously `player1` will be asked to write a
   - Contains at least two 7's 
 - The length of the string is between 4 - 16 characters 
 
-Each player will be required to remove an index, or chunk, of the string. Each index is made up of the given 5's or 7's. For example, entering the string `5577755575555` will result in:
+For example, entering the string `5577755575555` will result in:
 ```
 [0]55
 [1]777
@@ -19,6 +19,7 @@ Each player will be required to remove an index, or chunk, of the string. Each i
 [3]7
 [4]5555
 ```
+Each player will be required to remove an index, or chunk, of the string. Each index is made up of the given 5's or 7's. 
 
 ### Tips & Strategy
 How to win: send your opponent an empty string.
