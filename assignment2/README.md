@@ -16,7 +16,7 @@ Each player will be required to remove an index, or chunk, of the string. These 
 ### Tips & Strategy
 How to win: send your opponent an empty string.
 
-Here are some interesting concepts to use as a strategy:
+Here are some interesting concepts to use for strategy:
 
 **Minimum edits** - Since the player decides whether they want to remove _all_ or _some_ characters in any given index, it can be said that the **least** amount of edits that can happen during a game is equal to the amount of _indicies_ available. Therefore, the minimum amount of edits. 
   - A player who only utilizes this strategy will remove an index completely regardless of how many characters are in it
