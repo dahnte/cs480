@@ -30,7 +30,7 @@ Here are some interesting concepts to use for strategy:
 
 These concepts are helpful to develop a strategy during gameplay. A skilled player will utilize both concepts.
 
-In general, try to keep the amount of **minimum edits** you have an _odd_ number. In this case, both the **minimum** and **maximum** edits are _odd_. For example:
+In general, try to keep the amount of **minimum edits** you have an _odd_ number. In this case, both the **minimum** and **maximum edits** are _odd_. For example:
 ```
 [0]5
 [1]7
