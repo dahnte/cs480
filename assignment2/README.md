@@ -11,7 +11,7 @@ Once both programs are running simultaneously `player1` will be asked to write a
   - Contains at least two 7's 
 - The length of the string is between 4 - 16 characters 
 
-Each player will be required to remove an index, or chunk, of the string. These _indicies/chunks_ consist only of 5 or 7.
+Each player will be required to remove an index, or chunk, of the string. These indicies/chunks consist only of 5 or 7.
 
 ### Tips & Strategy
 How to win: send your opponent an empty string.
