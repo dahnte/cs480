@@ -18,7 +18,7 @@ How to win: send your opponent an empty string.
 
 Here are some interesting concepts to use for strategy:
 
-**Minimum edits** - Since the player decides whether they want to remove _all_ or _some_ characters in any given index, it can be said that the **least** amount of edits that can happen during a game is equal to the amount of _indicies_ available. Therefore, the minimum amount of edits. 
+**Minimum edits** - Since the player decides whether they want to remove _all_ or _some_ characters in any given index, it can be said that the **least** amount of edits that can happen during a game is equal to the amount of _indices_ available. Therefore, the minimum amount of edits. 
   - A player who only utilizes this strategy will remove an index completely regardless of how many characters are in it
   - This can be risky as it reduces the amount of turns both players have and may prevent you from seeing through moves
     - If played right you can surprise your opponent
@@ -36,9 +36,9 @@ In general, try to keep the amount of **minimum edits** you have an _odd_ number
 [1]7
 [2]5
 ```
-Receiving this string is like the equivalent to check in Chess. There are an _odd_ amount of indicies each with only 1 character to remove. If you were to remove index `[0]` this would leave your opponent with only two minimum edits possible, neither of them making a difference as the final index will be left for you to remove resulting in you winning the game.
+Receiving this string is like the equivalent to check in Chess. There are an _odd_ amount of indices each with only 1 character to remove. If you were to remove index `[0]` this would leave your opponent with only two minimum edits possible, neither of them making a difference as the final index will be left for you to remove resulting in you winning the game.
 
-Also consider the effects of combining elements from two different indicies:
+Also consider the effects of combining elements from two different indices:
 ```
 [0]5555
 [1]7
