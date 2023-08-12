@@ -44,16 +44,17 @@ In general, try to keep the amount of **minimum edits** you have an _odd_ number
 [1]7
 [2]5
 ```
-There are an _odd_ amount of indices each with only 1 character to remove. If you were to remove index `[0]` this would leave your opponent with only two **minimum edits** possible (an even amount of **minimum edits**), neither of them making a difference as the final index will be left for you to remove. This will result in you winning the game. In some ways, receiving the string above is sorta like being in check in Chess.
+There are an _odd_ amount of indices each with only 1 character to remove. If you were to remove index `[0]` this would leave your opponent with only two **minimum edits** possible (which is an even amount) neither of them making a difference as the final index will be left for you to remove. This will result in you winning the game. In some ways, receiving the string above is sorta like being in check in Chess.
 
 Also consider the effects of combining elements from two different indices:
 ```
-[0]5555
+[0]555
 [1]7
 [2]55
 [3]77
 [4]5
-[5]77777
+[5]7777
+[6]55
 ```
 Combining `[3]` and `[5]` by removing `[4]` will result in your opponent having an _odd_ amount of **minimum edits**. This can leave you at a disadvantage if you continue to have an even amount of **minimum edits**.
 
