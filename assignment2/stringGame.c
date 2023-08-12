@@ -1,10 +1,9 @@
-/* 
- * Author: Dante Cardenas
- * July 21, 2023
- * CS480 - Advanced Topics in Computing
+/** Author: Dante Cardenas
+ *	July 21, 2023
+ *	CS480 - Linux Programming
  *
- * Assignment 2 - A Game of Pipes. 
- * objective:
+ *	Assignment 2 - 57 Pipes
+ *	objective:
  *		player1.c starts the game with user inputted string containing 5 and 7
  *		the string is limited and checked for invalid chars
  *
@@ -100,7 +99,7 @@ void getString(char *string) {
 	unsigned int flag_seven = 0;
 	unsigned int flag_invalid = 0;
 
-	fprintf(stdout, "Enter a string that contains 5 AND 7 that is also greater than 4 and  less than 16 characters\n");
+	fprintf(stdout, "Enter a string that contains 5 AND 7 that is also greater than 4 and less than 16 characters\n");
 	while(result == NULL) {
 		result = fgets(string, BUFFER_SIZE, stdin);
 
@@ -224,12 +223,12 @@ void editString(char *string) {
  */
 int checkWinCondition(char *string, char *player_name) {
 	if((string[0] == '\n')) {
-		fprintf(stdout, "%s won the game! Good job.\n", player_name);
+		fprintf(stdout, "\n%s won the game! Good job.\n", player_name);
 		string[0] = '1';
 		return 0;
 	}	
 	else if(string[0] == '1') {
-		fprintf(stdout, "%s lost the game! Better luck next time.\n", player_name);
+		fprintf(stdout, "\n%s lost the game! Better luck next time.\n", player_name);
 		return 0;
 	}
 	else { return 1; }

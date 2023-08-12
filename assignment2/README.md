@@ -2,15 +2,11 @@
 
 
 ### Compilation
-To compile the game run these two commands:
-
-`gcc player1.c stringGame.c -o player1 -std=c99`
-
-`gcc player2.c stringGame.c -o player2 -std=c99`
+Compile the game by running `make` in the _assignment2_ directory.
 
 Begin the game by running `player1` followed by `player2` on separate terminal instances.
 
-### Game Rules & Strategy
+### Rules & Strategy
 Once both programs are running simultaneously `player1` will be asked to write a string. The string must follow these rules:
 - Consists of only 5's and 7's
   - Contains at least two 5's
@@ -22,9 +18,9 @@ To win you must be the player to make the final edit and remove the last bit of 
 - Try to break up indicies with only 1 character in them by removing the index
   between them
 
-### Development
+### Bugs & Development
 TODO LIST:
-- Makefile
+- Garbage collection?
 
 Known bugs:
 - Entering more than 16 characters as `player1` causes strange behavior
