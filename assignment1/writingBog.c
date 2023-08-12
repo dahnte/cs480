@@ -1,6 +1,6 @@
 /** Author: Dante Cardenas
  *	June 12, 2023
- *	CS480 - Advanced Topics in Computing
+ *	CS480 - Linux Programming
  *
  *	File contains my solution to assignment 1. Each function is preceded with a comment that exaplains its process.
  */
