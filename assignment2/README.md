@@ -36,7 +36,7 @@ In general, try to keep the amount of **minimum edits** you have an _odd_ number
 [1]7
 [2]5
 ```
-Receiving this string is like the equivalent to check in Chess. There are an _odd_ amount of indices each with only 1 character to remove. If you were to remove index `[0]` this would leave your opponent with only two minimum edits possible, neither of them making a difference as the final index will be left for you to remove resulting in you winning the game.
+Receiving this string is like the equivalent to check in Chess. There are an _odd_ amount of indices each with only 1 character to remove. If you were to remove index `[0]` this would leave your opponent with only two **minimum edits** possible, neither of them making a difference as the final index will be left for you to remove. This will result in you winning the game.
 
 Also consider the effects of combining elements from two different indices:
 ```
