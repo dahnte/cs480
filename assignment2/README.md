@@ -15,8 +15,18 @@ Once both programs are running simultaneously `player1` will be asked to write a
 
 To win you must be the player to make the final edit and remove the last bit of the string.
 - During gameplay try to maintain an odd amount of indicies
-- Try to break up indicies with only 1 character in them by removing the index
+- You can break up indicies with only 1 character in them by removing the index
   between them
+
+For example:
+```
+[0]5555
+[1]7
+[2]55
+[3]77
+[4]5     <- remove this element to combine [3] and [5]
+[5]77777
+```
 
 ### Bugs & Development
 TODO LIST:
