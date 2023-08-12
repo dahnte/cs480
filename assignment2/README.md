@@ -1,32 +1,52 @@
 # 57 Pipes - A two-player string manipulation game
 
-
-### Compilation
+### Compilation & Rules
 Compile the game by running `make` in the _assignment2_ directory.
 
 Begin the game by running `player1` followed by `player2` on separate terminal instances.
 
-### Rules & Strategy
 Once both programs are running simultaneously `player1` will be asked to write a string. The string must follow these rules:
 - Consists of only 5's and 7's
   - Contains at least two 5's
   - Contains at least two 7's 
 - The length of the string is between 4 - 16 characters 
 
-To win you must be the player to make the final edit and remove the last bit of the string.
-- During gameplay try to maintain an odd amount of indicies
-- You can break up indicies with only 1 character in them by removing the index
-  between them
+Each player will be required to remove an index, or chunk, of the string. These _indicies/chunks_ consist only of 5 or 7.
 
-For example:
+### Tips & Strategy
+How to win: send your opponent an empty string.
+
+Here are some interesting concepts to use as a strategy:
+**Minimum edits** - Since the player decides whether they want to remove _all_ or _some_ characters in any given index, it can be said that the **least** amount of edits that can happen during a game is equal to the amount of _indicies_ available. Therefore, the minimum amount of edits. 
+  - A player who only utilizes this strategy will remove an index completely regardless of how many characters are in it
+  - This can be risky as it reduces the amount of turns both players have and may prevent you from seeing through moves
+    - If played right you can surprise your opponent
+
+**Maximum edits** - Once again, because the player decides how many characters they want to remove, it can be said that the **most** amount of edits that can happen during a game is equal to the amount of _characters_ available.
+  - A player who utilizies this strategy will remove one character from the index regardless of how many characters are in it
+  - This can be rewarding as it increases the amount of turns possible giving you more time to set up your future turns
+    - If your opponent catches on they may take advantage of your slow playing
+
+These concepts are helpful to develop a strategy during gameplay. A skilled player will utilize both concepts.
+
+In general, try to keep the amount of **minimum edits** you have an _odd_ number. In this case, both the **minimum** and **maximum** edits are _odd_. For example:
+```
+[0]5
+[1]7
+[2]5
+```
+Receiving this string is like the equivalent to check in Chess. There are an _odd_ amount of indicies each with only 1 character to remove. If you were to remove index `[0]` this would leave your opponent with only two minimum edits possible, neither of them making a difference as the final index will be left for you to remove resulting in you winning the game.
+
+Also consider the effects of combining elements from two different indicies:
 ```
 [0]5555
 [1]7
 [2]55
 [3]77
-[4]5     <- remove this element to combine [3] and [5]
+[4]5
 [5]77777
 ```
+Combining `[3]` and `[5]` by removing `[4]` will result in your opponent having an odd amount of **minimum edits**.
 
 ### Bugs & Development
 TODO LIST:
