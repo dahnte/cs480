@@ -17,6 +17,7 @@ Each player will be required to remove an index, or chunk, of the string. These 
 How to win: send your opponent an empty string.
 
 Here are some interesting concepts to use as a strategy:
+
 **Minimum edits** - Since the player decides whether they want to remove _all_ or _some_ characters in any given index, it can be said that the **least** amount of edits that can happen during a game is equal to the amount of _indicies_ available. Therefore, the minimum amount of edits. 
   - A player who only utilizes this strategy will remove an index completely regardless of how many characters are in it
   - This can be risky as it reduces the amount of turns both players have and may prevent you from seeing through moves
