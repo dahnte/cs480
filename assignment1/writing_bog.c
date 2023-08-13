@@ -8,6 +8,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <ctype.h>
+#include <string.h>
 
 /** charWriteFile() - Write to a file char by char if given a file to read from char by char
  *
