@@ -23,7 +23,7 @@
 #include <string.h> /* strlen  */
 #include <ctype.h>
 #include <errno.h> /* errno */
-#include "stringGame.h"
+#include "string_game.h"
 
 void gameIntro() {
 	fprintf(stdout, "\n ____ _____   ____  _                 \n");

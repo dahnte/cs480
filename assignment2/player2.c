@@ -6,7 +6,7 @@
 #include <errno.h> /* variable to handle errors properly */
 #include <stdio.h>
 #include <string.h> /* memset */
-#include "stringGame.h" 
+#include "string_game.h" 
 
 int main(int argc, char **argv) {
     char *string = malloc(sizeof(char) * BUFFER_SIZE);
