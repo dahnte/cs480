@@ -120,11 +120,11 @@ int upperCaseCount(const char *file_read) {
 
 int main() {
 	printf("charWriteFile: ");
-	charWriteFile("bogLyrics.txt", "bogWrite.txt");
+	charWriteFile("bog_lyrics.txt", "bog_written.txt");
 	printf("lineWriteFile: ");
-	lineWriteFile("bogWrite.txt", "bogWriteNA.txt");
+	lineWriteFile("bog_written.txt", "bog_written_NA.txt");
 	printf("diffFile: ");
-	diffFile("bogLyrics.txt", "bogWrite.txt");
-	printf("upperCaseCount: %d\n", upperCaseCount("bogLyrics.txt"));
+	diffFile("bog_lyrics.txt", "bog_written.txt");
+	printf("upperCaseCount: %d\n", upperCaseCount("bog_lyrics.txt"));
 	return 0;
 }
