@@ -8,26 +8,24 @@
 #include <ncurses.h>
 #include <unistd.h>
 #include <string.h>
-#include "inchworm.h"
+#include "inchworm.h" /* SLEEP_TIME, BODY_LENGTH */
 
 int main(int *argc, char *argv[]) {
-	struct inchworm worm1 = {15, 62, 'E'};
-	int maxY, maxX;
+	int max_Y, max_X;
 
 	initscr();
 	curs_set(0);
 	noecho();
-	getmaxyx(stdscr, maxY, maxX);
-	setWormBody(&worm1, 'O', 'o');
+	getmaxyx(stdscr, max_Y, max_X);
+
+	struct inchworm worm1 = { 0 }; /* initialize inchworm "object" as worm1*/
+	worm1.body[0].x = max_X/2;
+	worm1.body[0].y = max_Y/2;
+	setWormBody(&worm1, '@', '#'); /* decide which characters will represent the worm1 */
 
 	while(1) {
-		clear();
-		updateWormPosition(&worm1, maxY, maxX);
-		for(int i = 0; i < BODY_SIZE; i++) {
-			mvprintw(worm1.y, worm1.body[i].x, "%c", worm1.body[i].charWorm);
-		}
-		refresh();
-		usleep(20000);
+		//randomDirection(&worm1);
+		updateWormPosition(&worm1, max_Y, max_X);
 	}
 
 	endwin();

@@ -1,20 +1,22 @@
 #ifndef INCHWORM_H
 #define INCHWORM_H
 
-#define BODY_SIZE 5
+#define BODY_LENGTH 3
+#define SLEEP_TIME 500000
 
 struct iwBody {
 	int y, x;
-	char charWorm;
+	char worm_char;
 };
 
 struct inchworm {
-	int y, x;
-	char direction;
-	struct iwBody body[BODY_SIZE];
+	int direction;
+	struct iwBody body[BODY_LENGTH];
 };
 
-void updateWormPosition(struct inchworm *worm, const int maxY, const int maxX);
-void setWormBody(struct inchworm *worm, const char charHead, const char charBody);
+void printWormPosition(struct inchworm *worm);
+void setWormBody(struct inchworm *worm, const char head_char, const char body_char);
+void updateWormPosition(struct inchworm *worm, const int max_Y, const int max_X);
+void randomDirection(struct inchworm *worm);
 
 #endif
