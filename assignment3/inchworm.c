@@ -93,7 +93,7 @@ void updateWormPosition(struct inchworm *worm, const int max_Y, const int max_X)
 		case 0:
 			for(int i = 0; i < BODY_LENGTH; i++) {
 				worm->body[i].x = worm->body[0].x;
-				worm->body[i].y = worm->body[0].y;
+				worm->body[i].y = worm->body[0].y + i;
 			}
 			printWormPosition(worm);
 			refresh();
@@ -112,7 +112,7 @@ void updateWormPosition(struct inchworm *worm, const int max_Y, const int max_X)
 		case 4:
 			for(int i = 0; i < BODY_LENGTH; i++) {
 				worm->body[i].x = worm->body[0].x;
-				worm->body[i].y = worm->body[0].y;
+				worm->body[i].y = worm->body[0].y + i;
 			}
 			printWormPosition(worm);
 			refresh();
