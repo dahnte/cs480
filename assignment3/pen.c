@@ -11,21 +11,26 @@
 #include "inchworm.h" /* SLEEP_TIME, BODY_LENGTH */
 
 int main(int *argc, char *argv[]) {
-	int max_Y, max_X;
+	int max_y, max_x;
 
 	initscr();
 	curs_set(0);
 	noecho();
-	getmaxyx(stdscr, max_Y, max_X);
+	getmaxyx(stdscr, max_y, max_x);
 
-	struct inchworm worm1 = { 0 }; /* initialize inchworm "object" as worm1*/
-	worm1.body[0].x = max_X/2;
-	worm1.body[0].y = max_Y/2;
-	setWormBody(&worm1, '@', '#'); /* decide which characters will represent the worm1 */
+	struct inchworm worm1; /* initialize inchworm "object" as worm1*/
+	initWorm(&worm1, 0, max_y/2, max_x/2, '@', '#');
+	struct inchworm worm2;
+	initWorm(&worm2, 2, max_y/3, max_x/2, '8', 'o');
+	struct inchworm worm3;
+	initWorm(&worm3, 6, max_y/2, max_x/3, 'O', '-');
 
 	while(1) {
 		//randomDirection(&worm1);
-		updateWormPosition(&worm1, max_Y, max_X);
+		updateWorm(&worm1, max_y, max_x);
+		updateWorm(&worm2, max_y, max_x);
+		updateWorm(&worm3, max_y, max_x);
+		
 	}
 
 	endwin();
