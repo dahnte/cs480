@@ -19,17 +19,23 @@ int main(int *argc, char *argv[]) {
 	getmaxyx(stdscr, max_y, max_x);
 
 	struct inchworm worm1; /* initialize inchworm "object" as worm1*/
-	initWorm(&worm1, 0, max_y/2, max_x/2, '@', '#');
+	initWorm(&worm1, 1, max_y/2, max_x/2, '@', '#');
 	struct inchworm worm2;
-	initWorm(&worm2, 2, max_y/3, max_x/2, '8', 'o');
+	initWorm(&worm2, 3, max_y/3, max_x/2, '@', '#');
 	struct inchworm worm3;
-	initWorm(&worm3, 6, max_y/2, max_x/3, 'O', '-');
+	initWorm(&worm3, 6, max_y/2, max_x/3, '@', '#');
+	struct inchworm worm4;
+	initWorm(&worm4, 4, max_y/3, max_x/3, '@', '#');
+	struct inchworm worm5;
+	initWorm(&worm5, 7, max_y/4, max_x/2, '@', '#');
 
 	while(1) {
 		//randomDirection(&worm1);
 		updateWorm(&worm1, max_y, max_x);
 		updateWorm(&worm2, max_y, max_x);
 		updateWorm(&worm3, max_y, max_x);
+		updateWorm(&worm4, max_y, max_x);
+		updateWorm(&worm5, max_y, max_x);
 		
 	}
 

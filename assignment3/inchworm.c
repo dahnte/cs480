@@ -28,19 +28,29 @@ void printWorm(struct inchworm *worm) {
 	}
 }
 
+void eraseWorm(struct inchworm *worm) {
+	for(int i = 0; i < BODY_LENGTH; i++) {
+		mvprintw(worm->body[i].y, worm->body[i].x, "%c", ' ');
+	}
+}
+
 void updateWorm(struct inchworm *worm, const int max_y, const int max_x) {
 	/* change direction of the worm if out of bounds */
 	if(worm->body[0].x > max_x) {
 		worm->direction = 6;
+		eraseWorm(worm);
 	}
 	else if(worm->body[0].x < 0) {
 		worm->direction = 2;
+		eraseWorm(worm);
 	}
 	else if(worm->body[0].y < 0) {
 		worm->direction = 4;
+		eraseWorm(worm);
 	}
 	else if(worm->body[0].y > max_y) {
 		worm->direction = 0;
+		eraseWorm(worm);
 	}
 
 	/**	Cardinal direction representation using 0-7
@@ -77,9 +87,30 @@ void updateWorm(struct inchworm *worm, const int max_y, const int max_x) {
 			/* remove trailing character not part of worm */
 			mvprintw(worm->body[2].y + 2, worm->body[2].x, "%c", ' ');
 			mvprintw(worm->body[1].y + 2, worm->body[1].x, "%c", ' ');
-			usleep(SLEEP_TIME);
+			usleep(SLEEP_TIME / 2);
 			break;
 		case 1:
+			for(int i = 0; i < BODY_LENGTH; i++) {
+				worm->body[i].x = worm->body[0].x - i;
+				worm->body[i].y = worm->body[0].y + i;
+			}
+			printWorm(worm);
+			refresh();
+			usleep(SLEEP_TIME);
+
+			worm->body[0].x = worm->body[0].x + 2;
+			worm->body[0].y = worm->body[0].y - 2;
+			for(int i = 0; i < BODY_LENGTH; i++) {
+				worm->body[i].x = worm->body[0].x - i;
+				worm->body[i].y = worm->body[0].y + i;
+			}
+			printWorm(worm);
+			refresh();
+			usleep(SLEEP_TIME);
+
+			mvprintw(worm->body[2].y + 2, worm->body[2].x - 2, "%c", ' ');
+			mvprintw(worm->body[1].y + 2, worm->body[1].x - 2, "%c", ' ');
+			usleep(SLEEP_TIME / 2);
 			break;
 		case 2:
 			for(int i = 0; i < BODY_LENGTH; i++) {
@@ -101,9 +132,30 @@ void updateWorm(struct inchworm *worm, const int max_y, const int max_x) {
 
 			mvprintw(worm->body[2].y, worm->body[2].x - 2, "%c", ' ');
 			mvprintw(worm->body[1].y, worm->body[1].x - 2, "%c", ' ');
-			usleep(SLEEP_TIME);
+			usleep(SLEEP_TIME / 2);
 			break;
 		case 3:
+			for(int i = 0; i < BODY_LENGTH; i++) {
+				worm->body[i].x = worm->body[0].x - i;
+				worm->body[i].y = worm->body[0].y - i;
+			}
+			printWorm(worm);
+			refresh();
+			usleep(SLEEP_TIME);
+
+			worm->body[0].x = worm->body[0].x + 2;
+			worm->body[0].y = worm->body[0].y + 2;
+			for(int i = 0; i < BODY_LENGTH; i++) {
+				worm->body[i].x = worm->body[0].x - i;
+				worm->body[i].y = worm->body[0].y - i;
+			}
+			printWorm(worm);
+			refresh();
+			usleep(SLEEP_TIME);
+
+			mvprintw(worm->body[2].y - 2, worm->body[2].x - 2, "%c", ' ');
+			mvprintw(worm->body[1].y - 2, worm->body[1].x - 2, "%c", ' ');
+			usleep(SLEEP_TIME / 2);
 			break;
 		case 4:
 			for(int i = 0; i < BODY_LENGTH; i++) {
@@ -125,9 +177,30 @@ void updateWorm(struct inchworm *worm, const int max_y, const int max_x) {
 
 			mvprintw(worm->body[2].y - 2, worm->body[2].x, "%c", ' ');	
 			mvprintw(worm->body[1].y - 2, worm->body[1].x, "%c", ' ');	
-			usleep(SLEEP_TIME);
+			usleep(SLEEP_TIME / 2);
 			break;
 		case 5:
+			for(int i = 0; i < BODY_LENGTH; i++) {
+				worm->body[i].x = worm->body[0].x + i;
+				worm->body[i].y = worm->body[0].y - i;
+			}
+			printWorm(worm);
+			refresh();
+			usleep(SLEEP_TIME);
+
+			worm->body[0].x = worm->body[0].x - 2;
+			worm->body[0].y = worm->body[0].y + 2;
+			for(int i = 0; i < BODY_LENGTH; i++) {
+				worm->body[i].x = worm->body[0].x + i;
+				worm->body[i].y = worm->body[0].y - i;
+			}
+			printWorm(worm);
+			refresh();
+			usleep(SLEEP_TIME);
+
+			mvprintw(worm->body[2].y - 2, worm->body[2].x + 2, "%c", ' ');	
+			mvprintw(worm->body[1].y - 2, worm->body[1].x + 2, "%c", ' ');	
+			usleep(SLEEP_TIME / 2);
 			break;
 		case 6:
 			for(int i = 0; i < BODY_LENGTH; i++) {
@@ -149,9 +222,31 @@ void updateWorm(struct inchworm *worm, const int max_y, const int max_x) {
 
 			mvprintw(worm->body[2].y, worm->body[2].x + 2, "%c", ' ');
 			mvprintw(worm->body[1].y, worm->body[1].x + 2, "%c", ' ');
-			usleep(SLEEP_TIME);
+			usleep(SLEEP_TIME / 2);
 			break;
 		case 7:
+			for(int i = 0; i < BODY_LENGTH; i++) {
+				worm->body[i].x = worm->body[0].x + i;
+				worm->body[i].y = worm->body[0].y + i;
+			}
+			printWorm(worm);
+			refresh();
+			usleep(SLEEP_TIME);
+
+			worm->body[0].x = worm->body[0].x - 2;
+			worm->body[0].y = worm->body[0].y - 2;
+			for(int i = 0; i < BODY_LENGTH; i++) {
+				worm->body[i].x = worm->body[0].x + i;
+				worm->body[i].y = worm->body[0].y + i;
+			}
+			printWorm(worm);
+			refresh();
+			usleep(SLEEP_TIME);
+
+			mvprintw(worm->body[2].y + 2, worm->body[2].x + 2, "%c", ' ');
+			mvprintw(worm->body[1].y + 2, worm->body[1].x + 2, "%c", ' ');
+			usleep(SLEEP_TIME / 2);
+
 			break;
 	}
 }
