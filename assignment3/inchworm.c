@@ -1,4 +1,6 @@
 #include <ncurses.h>
+#include <stdlib.h>
+#include <time.h>
 #include "inchworm.h"
 
 void initWorm(struct inchworm *worm, int direction, int y, int x, const char head_char, const char body_char) {
@@ -16,10 +18,16 @@ void initWorm(struct inchworm *worm, int direction, int y, int x, const char hea
 	worm->body[0].x = x;
 }
 
-void randomDir(struct inchworm *worm) {
-	int input;
-	scanf("%d", &input);
-	worm->direction = input;
+void setRandomDirection(struct inchworm *worm) {
+	int r = rand() % 8;
+
+	if(worm->direction > r) {
+		worm->direction = r + 2;
+	}
+	else if(worm->direction < r) {
+		worm->direction = r - 2;
+	}
+	else { worm->direction = r; }
 }
 
 void printWorm(struct inchworm *worm) {
@@ -36,21 +44,19 @@ void eraseWorm(struct inchworm *worm) {
 
 void updateWorm(struct inchworm *worm, const int max_y, const int max_x) {
 	/* change direction of the worm if out of bounds */
-	if(worm->body[0].x > max_x) {
-		worm->direction = 6;
-		eraseWorm(worm);
-	}
-	else if(worm->body[0].x < 0) {
-		worm->direction = 2;
-		eraseWorm(worm);
-	}
-	else if(worm->body[0].y < 0) {
-		worm->direction = 4;
-		eraseWorm(worm);
-	}
-	else if(worm->body[0].y > max_y) {
-		worm->direction = 0;
-		eraseWorm(worm);
+	if(worm->body[0].y > max_y - 7
+				|| worm->body[0].y < 7
+				|| worm->body[0].x < 7
+				|| worm->body[0].x > max_x - 7)
+	{
+		if(worm->direction != 7) {
+			worm->direction++;	
+			eraseWorm(worm);
+		}
+		else {
+			worm->direction = 0;
+			eraseWorm(worm);
+		}
 	}
 
 	/**	Cardinal direction representation using 0-7
@@ -246,7 +252,7 @@ void updateWorm(struct inchworm *worm, const int max_y, const int max_x) {
 			mvprintw(worm->body[2].y + 2, worm->body[2].x + 2, "%c", ' ');
 			mvprintw(worm->body[1].y + 2, worm->body[1].x + 2, "%c", ' ');
 			usleep(SLEEP_TIME / 2);
-
 			break;
 	}
+	//setRandomDirection(worm);
 }

@@ -2,7 +2,7 @@
 #define INCHWORM_H
 
 #define BODY_LENGTH 3
-#define SLEEP_TIME 200000
+#define SLEEP_TIME 100000
 #define HEAD 0
 
 struct iwBody {
