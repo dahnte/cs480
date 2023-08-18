@@ -77,6 +77,7 @@ void updateWorm(struct inchworm *worm, const int max_y, const int max_x) {
 			/* remove trailing character not part of worm */
 			mvprintw(worm->body[2].y + 2, worm->body[2].x, "%c", ' ');
 			mvprintw(worm->body[1].y + 2, worm->body[1].x, "%c", ' ');
+			usleep(SLEEP_TIME);
 			break;
 		case 1:
 			break;
@@ -100,6 +101,7 @@ void updateWorm(struct inchworm *worm, const int max_y, const int max_x) {
 
 			mvprintw(worm->body[2].y, worm->body[2].x - 2, "%c", ' ');
 			mvprintw(worm->body[1].y, worm->body[1].x - 2, "%c", ' ');
+			usleep(SLEEP_TIME);
 			break;
 		case 3:
 			break;
@@ -123,6 +125,7 @@ void updateWorm(struct inchworm *worm, const int max_y, const int max_x) {
 
 			mvprintw(worm->body[2].y - 2, worm->body[2].x, "%c", ' ');	
 			mvprintw(worm->body[1].y - 2, worm->body[1].x, "%c", ' ');	
+			usleep(SLEEP_TIME);
 			break;
 		case 5:
 			break;
@@ -146,6 +149,7 @@ void updateWorm(struct inchworm *worm, const int max_y, const int max_x) {
 
 			mvprintw(worm->body[2].y, worm->body[2].x + 2, "%c", ' ');
 			mvprintw(worm->body[1].y, worm->body[1].x + 2, "%c", ' ');
+			usleep(SLEEP_TIME);
 			break;
 		case 7:
 			break;
