@@ -3,7 +3,7 @@
 
 #define BODY_LENGTH 3
 #define SLEEP_TIME 100000
-#define HEAD 0
+#define SCRUNCH_TIME SLEEP_TIME/2
 
 struct iwBody {
 	int y, x;
