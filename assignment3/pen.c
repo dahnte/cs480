@@ -33,10 +33,10 @@ int main(int *argc, char *argv[]) {
 
 	while(1) {
 		//randomDirection(&worm1);
-		updateWorm(&worm1, max_y, max_x);
-		updateWorm(&worm2, max_y, max_x);
-		updateWorm(&worm3, max_y, max_x);
-		updateWorm(&worm4, max_y, max_x);
+		moveWorm(&worm1, max_y, max_x);
+		moveWorm(&worm2, max_y, max_x);
+		moveWorm(&worm3, max_y, max_x);
+		moveWorm(&worm4, max_y, max_x);
 	}
 
 	endwin();

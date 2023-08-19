@@ -15,10 +15,12 @@ struct inchworm {
 	struct iwBody body[BODY_LENGTH];
 };
 
-void initWorm(struct inchworm *worm, int direction, int y, int x, const char head_char, const char body_char);
-void randomDir(struct inchworm *worm);
+void initWorm(struct inchworm *worm, int direction, int start_y, int start_x, const char head_char, const char body_char);
 void printWorm(struct inchworm *worm);
 void eraseWorm(struct inchworm *worm);
-void updateWorm(struct inchworm *worm, const int max_Y, const int max_X);
+void randomizeDirection(struct inchworm *worm);
+int checkBounds(struct inchworm *worm, const int max_y, const int max_x);
+void fixWorm(struct inchworm *worm);
+void moveWorm(struct inchworm *worm, const int max_y, const int max_x);
 
 #endif

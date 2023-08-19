@@ -3,7 +3,7 @@
 #include <time.h>
 #include "inchworm.h"
 
-void initWorm(struct inchworm *worm, int direction, int y, int x, const char head_char, const char body_char) {
+void initWorm(struct inchworm *worm, int direction, int start_y, int start_x, const char head_char, const char body_char) {
 	/* set worm direction to 0-7 */
 	worm->direction = direction;
 
@@ -14,20 +14,8 @@ void initWorm(struct inchworm *worm, int direction, int y, int x, const char hea
 	}
 
 	/* assign worm's head position, which is also the starting position */
-	worm->body[0].y = y; 
-	worm->body[0].x = x;
-}
-
-void setRandomDirection(struct inchworm *worm) {
-	int r = rand() % 8;
-
-	if(worm->direction > r) {
-		worm->direction = r + 2;
-	}
-	else if(worm->direction < r) {
-		worm->direction = r - 2;
-	}
-	else { worm->direction = r; }
+	worm->body[0].y = start_y; 
+	worm->body[0].x = start_x;
 }
 
 void printWorm(struct inchworm *worm) {
@@ -42,22 +30,50 @@ void eraseWorm(struct inchworm *worm) {
 	}
 }
 
-void updateWorm(struct inchworm *worm, const int max_y, const int max_x) {
-	/* change direction of the worm if out of bounds */
+void randomizeDirection(struct inchworm *worm) {
+	int r = rand() % 101;
+
+	if(r < 25) {
+		if(worm->direction == 7)
+			worm->direction = 0;
+		else 
+			worm->direction++;
+	}
+	else if(r > 75) {
+		if(worm->direction == 0) 
+			worm->direction = 7;
+		else 
+			worm->direction--;
+	}
+	eraseWorm(worm);
+}
+
+int checkBounds(struct inchworm *worm, const int max_y, const int max_x) {
 	if(worm->body[0].y > max_y - 7
 				|| worm->body[0].y < 7
 				|| worm->body[0].x < 7
 				|| worm->body[0].x > max_x - 7)
 	{
-		if(worm->direction != 7) {
-			worm->direction++;	
-			eraseWorm(worm);
-		}
-		else {
-			worm->direction = 0;
-			eraseWorm(worm);
-		}
+		return 1;
 	}
+	else
+		return 0;
+}
+
+void fixWorm(struct inchworm *worm) {
+	if(worm->direction != 7)
+		worm->direction++;	
+	else
+		worm->direction = 0;
+
+	eraseWorm(worm);
+}
+
+void moveWorm(struct inchworm *worm, const int max_y, const int max_x) {
+	if(checkBounds(worm, max_y, max_x) == 1)
+		fixWorm(worm); /* if worm is out of bounds then correct their direction  */
+	else
+		randomizeDirection(worm); /* if worm is not out of bounds then set a normal random direction */
 
 	/**	Cardinal direction representation using 0-7
 	 *                  0
@@ -254,5 +270,4 @@ void updateWorm(struct inchworm *worm, const int max_y, const int max_x) {
 			usleep(SLEEP_TIME / 2);
 			break;
 	}
-	//setRandomDirection(worm);
 }
