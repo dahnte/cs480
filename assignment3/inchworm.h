@@ -3,7 +3,7 @@
 
 #define BODY_LENGTH 3
 #define SLEEP_TIME 120000
-#define SCRUNCH_TIME SLEEP_TIME
+#define SCRUNCH_TIME SLEEP_TIME * 2
 #define TRAIL_CHAR ' '
 
 struct iwBody {
@@ -21,7 +21,7 @@ void printWorm(struct inchworm *worm);
 void eraseWorm(struct inchworm *worm);
 void randomizeDirection(struct inchworm *worm);
 int checkBounds(struct inchworm *worm, const int max_y, const int max_x);
-void fixWorm(struct inchworm *worm);
+void redirectWorm(struct inchworm *worm);
 void moveWorm(struct inchworm *worm, const int max_y, const int max_x);
 
 #endif

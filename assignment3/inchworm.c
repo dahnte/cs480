@@ -60,7 +60,7 @@ int checkBounds(struct inchworm *worm, const int max_y, const int max_x) {
 		return 0;
 }
 
-void fixWorm(struct inchworm *worm) {
+void redirectWorm(struct inchworm *worm) {
 	if(worm->direction != 7)
 		worm->direction++;	
 	else
@@ -71,7 +71,7 @@ void fixWorm(struct inchworm *worm) {
 
 void moveWorm(struct inchworm *worm, const int max_y, const int max_x) {
 	if(checkBounds(worm, max_y, max_x) == 1)
-		fixWorm(worm); /* if worm is out of bounds then correct their direction  */
+		redirectWorm(worm); /* if worm is out of bounds then fix their direction  */
 	else
 		randomizeDirection(worm); /* if worm is not out of bounds then set a normal random direction */
 

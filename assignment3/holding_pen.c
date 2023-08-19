@@ -6,10 +6,9 @@
  */
 
 #include <ncurses.h>
-#include <unistd.h>
-#include <string.h>
-#include <stdlib.h>
-#include <time.h>
+#include <stdlib.h> /* srand() */
+#include <time.h> /* time() */
+#include <pthread.h> /* POSIX threads */
 #include "inchworm.h" /* SLEEP_TIME, BODY_LENGTH, SCRUNCH_TIME */
 
 int main(int *argc, char *argv[]) {
@@ -32,7 +31,6 @@ int main(int *argc, char *argv[]) {
 	initWorm(&worm4, 0, max_y/2, max_x/2, '@', '#');
 
 	while(1) {
-		//randomDirection(&worm1);
 		moveWorm(&worm1, max_y, max_x);
 		moveWorm(&worm2, max_y, max_x);
 		moveWorm(&worm3, max_y, max_x);
