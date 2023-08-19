@@ -107,8 +107,8 @@ void moveWorm(struct inchworm *worm, const int max_y, const int max_x) {
 			usleep(SLEEP_TIME);
 
 			/* remove trailing character not part of worm */
-			mvprintw(worm->body[2].y + 2, worm->body[2].x, "%c", ' ');
-			mvprintw(worm->body[1].y + 2, worm->body[1].x, "%c", ' ');
+			mvprintw(worm->body[2].y + 2, worm->body[2].x, "%c", TRAIL_CHAR);
+			mvprintw(worm->body[1].y + 2, worm->body[1].x, "%c", TRAIL_CHAR);
 			usleep(SCRUNCH_TIME);
 			break;
 		case 1:
@@ -130,8 +130,8 @@ void moveWorm(struct inchworm *worm, const int max_y, const int max_x) {
 			refresh();
 			usleep(SLEEP_TIME);
 
-			mvprintw(worm->body[2].y + 2, worm->body[2].x - 2, "%c", ' ');
-			mvprintw(worm->body[1].y + 2, worm->body[1].x - 2, "%c", ' ');
+			mvprintw(worm->body[2].y + 2, worm->body[2].x - 2, "%c", TRAIL_CHAR);
+			mvprintw(worm->body[1].y + 2, worm->body[1].x - 2, "%c", TRAIL_CHAR);
 			usleep(SCRUNCH_TIME);
 			break;
 		case 2:
@@ -152,8 +152,8 @@ void moveWorm(struct inchworm *worm, const int max_y, const int max_x) {
 			refresh();
 			usleep(SLEEP_TIME);
 
-			mvprintw(worm->body[2].y, worm->body[2].x - 2, "%c", ' ');
-			mvprintw(worm->body[1].y, worm->body[1].x - 2, "%c", ' ');
+			mvprintw(worm->body[2].y, worm->body[2].x - 2, "%c", TRAIL_CHAR);
+			mvprintw(worm->body[1].y, worm->body[1].x - 2, "%c", TRAIL_CHAR);
 			usleep(SCRUNCH_TIME);
 			break;
 		case 3:
@@ -175,8 +175,8 @@ void moveWorm(struct inchworm *worm, const int max_y, const int max_x) {
 			refresh();
 			usleep(SLEEP_TIME);
 
-			mvprintw(worm->body[2].y - 2, worm->body[2].x - 2, "%c", ' ');
-			mvprintw(worm->body[1].y - 2, worm->body[1].x - 2, "%c", ' ');
+			mvprintw(worm->body[2].y - 2, worm->body[2].x - 2, "%c", TRAIL_CHAR);
+			mvprintw(worm->body[1].y - 2, worm->body[1].x - 2, "%c", TRAIL_CHAR);
 			usleep(SCRUNCH_TIME);
 			break;
 		case 4:
@@ -197,8 +197,8 @@ void moveWorm(struct inchworm *worm, const int max_y, const int max_x) {
 			refresh();
 			usleep(SLEEP_TIME);
 
-			mvprintw(worm->body[2].y - 2, worm->body[2].x, "%c", ' ');	
-			mvprintw(worm->body[1].y - 2, worm->body[1].x, "%c", ' ');	
+			mvprintw(worm->body[2].y - 2, worm->body[2].x, "%c", TRAIL_CHAR);	
+			mvprintw(worm->body[1].y - 2, worm->body[1].x, "%c", TRAIL_CHAR);	
 			usleep(SCRUNCH_TIME);
 			break;
 		case 5:
@@ -220,8 +220,8 @@ void moveWorm(struct inchworm *worm, const int max_y, const int max_x) {
 			refresh();
 			usleep(SLEEP_TIME);
 
-			mvprintw(worm->body[2].y - 2, worm->body[2].x + 2, "%c", ' ');	
-			mvprintw(worm->body[1].y - 2, worm->body[1].x + 2, "%c", ' ');	
+			mvprintw(worm->body[2].y - 2, worm->body[2].x + 2, "%c", TRAIL_CHAR);	
+			mvprintw(worm->body[1].y - 2, worm->body[1].x + 2, "%c", TRAIL_CHAR);	
 			usleep(SCRUNCH_TIME);
 			break;
 		case 6:
@@ -242,8 +242,8 @@ void moveWorm(struct inchworm *worm, const int max_y, const int max_x) {
 			refresh();
 			usleep(SLEEP_TIME);
 
-			mvprintw(worm->body[2].y, worm->body[2].x + 2, "%c", ' ');
-			mvprintw(worm->body[1].y, worm->body[1].x + 2, "%c", ' ');
+			mvprintw(worm->body[2].y, worm->body[2].x + 2, "%c", TRAIL_CHAR);
+			mvprintw(worm->body[1].y, worm->body[1].x + 2, "%c", TRAIL_CHAR);
 			usleep(SCRUNCH_TIME);
 			break;
 		case 7:
@@ -265,8 +265,8 @@ void moveWorm(struct inchworm *worm, const int max_y, const int max_x) {
 			refresh();
 			usleep(SLEEP_TIME);
 
-			mvprintw(worm->body[2].y + 2, worm->body[2].x + 2, "%c", ' ');
-			mvprintw(worm->body[1].y + 2, worm->body[1].x + 2, "%c", ' ');
+			mvprintw(worm->body[2].y + 2, worm->body[2].x + 2, "%c", TRAIL_CHAR);
+			mvprintw(worm->body[1].y + 2, worm->body[1].x + 2, "%c", TRAIL_CHAR);
 			usleep(SCRUNCH_TIME);
 			break;
 	}

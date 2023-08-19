@@ -2,8 +2,9 @@
 #define INCHWORM_H
 
 #define BODY_LENGTH 3
-#define SLEEP_TIME 100000
+#define SLEEP_TIME 120000
 #define SCRUNCH_TIME SLEEP_TIME
+#define TRAIL_CHAR ' '
 
 struct iwBody {
 	int y, x;
