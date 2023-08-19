@@ -10,7 +10,7 @@
 #include <string.h>
 #include <stdlib.h>
 #include <time.h>
-#include "inchworm.h" /* SLEEP_TIME, BODY_LENGTH */
+#include "inchworm.h" /* SLEEP_TIME, BODY_LENGTH, SCRUNCH_TIME */
 
 int main(int *argc, char *argv[]) {
 	int max_y, max_x;
@@ -22,7 +22,7 @@ int main(int *argc, char *argv[]) {
 
 	srand(time(NULL));
 
-	struct inchworm worm1; /* initialize inchworm "object" as worm1*/
+	struct inchworm worm1;
 	initWorm(&worm1, 1, max_y/2, max_x/2, '@', '#');
 	struct inchworm worm2;
 	initWorm(&worm2, 6, max_y/3, max_x/2, '@', '#');
