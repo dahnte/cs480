@@ -1,7 +1,25 @@
 #include <ncurses.h>
 #include <stdlib.h>
 #include <time.h>
-#include "inchworm.h"
+#include <pthread.h>
+
+#define BODY_LENGTH 3
+#define SLEEP_TIME 150000
+#define SCRUNCH_TIME SLEEP_TIME * 2
+#define TRAIL_CHAR ' '
+
+pthread_mutex_t lock;
+
+struct iwBody{
+	int y, x;
+	char worm_char;
+};
+
+struct inchworm {
+	int direction;
+	struct iwBody body[BODY_LENGTH];
+	int max_x, max_y;
+};
 
 void initWorm(struct inchworm *worm, int direction, int max_y, int max_x, int start_y, int start_x, const char head_char, const char body_char) {
 	/* set worm direction to 0-7 */
@@ -75,6 +93,10 @@ void redirectWorm(struct inchworm *worm) {
 
 void *moveWorm(void *worm_ptr) {
 	struct inchworm *worm = (struct inchworm*) (worm_ptr);
+
+	//while(1) {
+	pthread_mutex_lock(&lock);
+
 	if(checkBounds(worm) == 1)
 		redirectWorm(worm); /* if worm is out of bounds then fix their direction  */
 	else
@@ -275,4 +297,38 @@ void *moveWorm(void *worm_ptr) {
 			usleep(SCRUNCH_TIME);
 			break;
 	}
+
+	pthread_mutex_unlock(&lock);
+}
+
+int main(int *argc, char *argv[]) {
+	int max_y, max_x;
+	struct inchworm worm1, worm2, worm3, worm4;
+	pthread_t thread1, thread2, thread3, thread4;
+
+	initscr();
+	curs_set(0);
+	noecho();
+	getmaxyx(stdscr, max_y, max_x);
+
+	srand(time(NULL));
+
+	initWorm(&worm1, 1, max_y, max_x, max_y/2, max_x/2, '@', '#');
+	initWorm(&worm2, 6, max_y, max_x, max_y/3, max_x/2, '@', '#');
+	initWorm(&worm3, 4, max_y, max_x, max_y/3, max_x/3, '@', '#');
+	initWorm(&worm4, 0, max_y, max_x, max_y/2, max_x/2, '@', '#');
+
+while(1) {
+	pthread_create(&thread1, NULL, moveWorm, &worm1);
+	pthread_create(&thread2, NULL, moveWorm, &worm2);
+	pthread_create(&thread3, NULL, moveWorm, &worm3);
+	pthread_create(&thread4, NULL, moveWorm, &worm4);
+	pthread_join(thread1, NULL);
+	pthread_join(thread2, NULL);
+	pthread_join(thread3, NULL);
+	pthread_join(thread4, NULL);
+}
+
+	endwin();
+	return 0;
 }
