@@ -23,10 +23,10 @@ int main(int *argc, char *argv[]) {
 
 	srand(time(NULL));
 
-	initWorm(&worm1, 1, max_y/2, max_x/2, '@', '#');
-	initWorm(&worm2, 6, max_y/3, max_x/2, '@', '#');
-	initWorm(&worm3, 4, max_y/3, max_x/3, '@', '#');
-	initWorm(&worm4, 0, max_y/2, max_x/2, '@', '#');
+	initWorm(&worm1, 1, max_y, max_x, max_y/2, max_x/2, '@', '#');
+	initWorm(&worm2, 6, max_y, max_x, max_y/3, max_x/2, '@', '#');
+	initWorm(&worm3, 4, max_y, max_x, max_y/3, max_x/3, '@', '#');
+	initWorm(&worm4, 0, max_y, max_x, max_y/2, max_x/2, '@', '#');
 
 	while(1) {
 		pthread_create(&thread1, NULL, moveWorm, &worm1);

@@ -3,9 +3,13 @@
 #include <time.h>
 #include "inchworm.h"
 
-void initWorm(struct inchworm *worm, int direction, int start_y, int start_x, const char head_char, const char body_char) {
+void initWorm(struct inchworm *worm, int direction, int max_y, int max_x, int start_y, int start_x, const char head_char, const char body_char) {
 	/* set worm direction to 0-7 */
 	worm->direction = direction;
+	
+	/* assign max_y and max_x of worm's allowed movements  */
+	worm->max_y = max_y;
+	worm->max_x = max_x;
 
 	/* assign char's to worm's body and unique char to worm head */
 	worm->body[0].worm_char = head_char; 
@@ -17,7 +21,7 @@ void initWorm(struct inchworm *worm, int direction, int start_y, int start_x, co
 	worm->body[0].y = start_y; 
 	worm->body[0].x = start_x;
 }
-
+	
 void printWorm(struct inchworm *worm) {
 	for(int i = 0; i < BODY_LENGTH; i++) {
 		mvprintw(worm->body[i].y, worm->body[i].x, "%c", worm->body[i].worm_char);

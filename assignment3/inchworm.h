@@ -17,7 +17,7 @@ struct inchworm {
 	int max_x, max_y;
 };
 
-void initWorm(struct inchworm *worm, int direction, int start_y, int start_x, const char head_char, const char body_char);
+void initWorm(struct inchworm *worm, int direction, int max_y, int max_x, int start_y, int start_x, const char head_char, const char body_char);
 void printWorm(struct inchworm *worm);
 void eraseWorm(struct inchworm *worm);
 void randomizeDirection(struct inchworm *worm);

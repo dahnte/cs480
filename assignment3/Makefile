@@ -1,6 +1,6 @@
 default: simulation
 
-simulation: holding_pen.c inchworm.c inchworm.h
-	gcc -std=c99 -lncurses -o simulation inchworm.c holding_pen.c
+simulation: inchworm.c inchworm.h holding_pen.c
+	gcc -std=c99 -lpthread -lncurses -o simulation inchworm.c holding_pen.c
 
 .PHONY: default
