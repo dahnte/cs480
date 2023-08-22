@@ -8,7 +8,7 @@
 #define SCRUNCH_TIME SLEEP_TIME * 2
 #define TRAIL_CHAR ' '
 
-pthread_mutex_t lock;
+pthread_mutex_t mutex;
 
 struct iwBody{
 	int y, x;
@@ -41,11 +41,9 @@ void initWorm(struct inchworm *worm, int direction, int max_y, int max_x, int st
 }
 	
 void printWorm(struct inchworm *worm) {
-	pthread_mutex_lock(&lock);
 	for(int i = 0; i < BODY_LENGTH; i++) {
 		mvprintw(worm->body[i].y, worm->body[i].x, "%c", worm->body[i].worm_char);
 	}
-	pthread_mutex_unlock(&lock);
 }
 
 void eraseWorm(struct inchworm *worm) {
@@ -55,7 +53,6 @@ void eraseWorm(struct inchworm *worm) {
 }
 
 void randomizeDirection(struct inchworm *worm) {
-	pthread_mutex_lock(&lock);
 	int r = rand() % 101;
 
 	if(r < 25) {
@@ -71,7 +68,6 @@ void randomizeDirection(struct inchworm *worm) {
 			worm->direction--;
 	}
 	eraseWorm(worm);
-	pthread_mutex_unlock(&lock);
 }
 
 int checkBounds(struct inchworm *worm) {
@@ -96,14 +92,15 @@ void redirectWorm(struct inchworm *worm) {
 }
 
 void *moveWorm(void *worm_ptr) {
-	struct inchworm *worm = (struct inchworm*) (worm_ptr);
+	struct inchworm *worm = (struct inchworm*)(worm_ptr);
 
-	//pthread_mutex_lock(&lock);
-
-	if(checkBounds(worm) == 1)
+	while(1) {
+	if(checkBounds(worm) == 1) {
 		redirectWorm(worm); /* if worm is out of bounds then fix their direction  */
-	else
+	}
+	else {
 		randomizeDirection(worm); /* if worm is not out of bounds then set a normal random direction */
+	}
 
 	/**	Cardinal direction representation using 0-7
 	 *                  0
@@ -114,8 +111,7 @@ void *moveWorm(void *worm_ptr) {
 	 *          5       S       3
 	 *                  4
 	 */
-
-	while(1) {
+pthread_mutex_lock(&mutex);
 	switch(worm->direction) {
 		case 0:
 			/* scrunch worm  */
@@ -301,8 +297,8 @@ void *moveWorm(void *worm_ptr) {
 			usleep(SCRUNCH_TIME);
 			break;
 	}
+	pthread_mutex_unlock(&mutex);
 	}
-	//pthread_mutex_unlock(&lock);
 }
 
 int main(int *argc, char *argv[]) {
@@ -310,11 +306,12 @@ int main(int *argc, char *argv[]) {
 	struct inchworm worm[4];
 	pthread_t thread[4];
 
-	pthread_mutex_init(&lock, NULL);
+	pthread_mutex_init(&mutex, NULL);
 
 	initscr();
 	curs_set(0);
 	noecho();
+	clear();
 	getmaxyx(stdscr, max_y, max_x);
 
 	srand(time(NULL));
@@ -332,7 +329,7 @@ int main(int *argc, char *argv[]) {
 		pthread_join(thread[i], NULL);
 	}
 
-	pthread_mutex_destroy(&lock);
+	pthread_mutex_destroy(&mutex);
 	endwin();
 	return 0;
 }
