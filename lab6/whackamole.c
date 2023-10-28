@@ -108,12 +108,13 @@ int main(int *argc, char *argv[]) {
 		else {
 			timing = timing - 100;
 		}
-		/* DEBUG */
+		/* DEBUG 
 		mvprintw(1,3,"timing: %d", timing);
 		mvprintw(2,3,"integer: %d", c);
 		mvprintw(3,3,"char: %c", c);
 		mvprintw(4,3,"holes: %c", holes[c].hole_char);
 		refresh();
+		*/
 
 		if(timing <= 0) {
 			round++;
