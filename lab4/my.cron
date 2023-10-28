@@ -1,1 +1,1 @@
-1 * * * * /home/dnc28/cs480/lab4/peekaboo.c > /home/dnc28/cs480/lab4/saveaboo.txt
+* * * * * cd /home/dnc28/cs480/lab4 && ./peekaboo > ./saveaboo.txt
