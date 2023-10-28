@@ -1,7 +1,25 @@
 #include <ncurses.h>
 #include <stdlib.h>
 #include <time.h>
-#include "inchworm.h"
+#include <pthread.h>
+
+#define BODY_LENGTH 3
+#define SLEEP_TIME 300000
+#define SCRUNCH_TIME SLEEP_TIME * 2
+#define TRAIL_CHAR ' '
+
+pthread_mutex_t mutex;
+
+struct iwBody{
+	int y, x;
+	char worm_char;
+};
+
+struct inchworm {
+	int direction;
+	struct iwBody body[BODY_LENGTH];
+	int max_x, max_y;
+};
 
 void initWorm(struct inchworm *worm, int direction, int max_y, int max_x, int start_y, int start_x, const char head_char, const char body_char) {
 	/* set worm direction to 0-7 */
@@ -74,11 +92,15 @@ void redirectWorm(struct inchworm *worm) {
 }
 
 void *moveWorm(void *worm_ptr) {
-	struct inchworm *worm = (struct inchworm*) (worm_ptr);
-	if(checkBounds(worm) == 1)
+	struct inchworm *worm = (struct inchworm*)(worm_ptr);
+
+	while(1) {
+	if(checkBounds(worm) == 1) {
 		redirectWorm(worm); /* if worm is out of bounds then fix their direction  */
-	else
+	}
+	else {
 		randomizeDirection(worm); /* if worm is not out of bounds then set a normal random direction */
+	}
 
 	/**	Cardinal direction representation using 0-7
 	 *                  0
@@ -89,7 +111,7 @@ void *moveWorm(void *worm_ptr) {
 	 *          5       S       3
 	 *                  4
 	 */
-
+pthread_mutex_lock(&mutex);
 	switch(worm->direction) {
 		case 0:
 			/* scrunch worm  */
@@ -275,4 +297,39 @@ void *moveWorm(void *worm_ptr) {
 			usleep(SCRUNCH_TIME);
 			break;
 	}
+	pthread_mutex_unlock(&mutex);
+	}
+}
+
+int main(int *argc, char *argv[]) {
+	int max_y, max_x;
+	struct inchworm worm[4];
+	pthread_t thread[4];
+
+	pthread_mutex_init(&mutex, NULL);
+
+	initscr();
+	curs_set(0);
+	noecho();
+	clear();
+	getmaxyx(stdscr, max_y, max_x);
+
+	srand(time(NULL));
+
+	initWorm(&worm[0], 1, max_y, max_x, max_y/2, max_x/2, '@', '#');
+	initWorm(&worm[1], 6, max_y, max_x, max_y/3, max_x/2, '@', '#');
+	initWorm(&worm[2], 4, max_y, max_x, max_y/3, max_x/3, '@', '#');
+	initWorm(&worm[3], 0, max_y, max_x, max_y/2, max_x/2, '@', '#');
+
+	for(int i = 0; i < 4; i++) {
+		pthread_create(&thread[i], NULL, moveWorm, &worm[i]);
+	}
+
+	for(int i = 0; i < 4; i++) {
+		pthread_join(thread[i], NULL);
+	}
+
+	pthread_mutex_destroy(&mutex);
+	endwin();
+	return 0;
 }

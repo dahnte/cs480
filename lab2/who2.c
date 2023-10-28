@@ -44,6 +44,15 @@ void show_info( struct utmp *utbufp )
         printf("%-8.8s", utbufp->ut_line);      /* the tty      */
         printf(" ");                            /* a space      */
         showtime( utbufp->ut_time );            /* display time */
+
+		printf(" \n");
+
+        printf("%0.4s", utbufp->ut_name);      /* the logname  */
+        printf(" ");                            /* a space      */
+        printf("%10.8s", utbufp->ut_line);      /* the tty      */
+        printf(" ");                            /* a space      */
+        showtime( utbufp->ut_time );            /* display time */
+
 #ifdef SHOWHOST
         if ( utbufp->ut_host[0] != '\0' )
                 printf(" (%s)", utbufp->ut_host);/* the host    */
@@ -65,6 +74,6 @@ void showtime( long timeval )
                                         /* string looks like            */
                                         /* Mon Feb  4 00:46:40 EST 1991 */
                                         /* 0123456789012345.            */
-        printf("%12.12s", cp+4 );       /* pick 12 chars from pos 4     */
+        printf("%12.12d", cp+4 );       /* pick 12 chars from pos 4     */
 }
 
