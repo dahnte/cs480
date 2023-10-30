@@ -15,7 +15,19 @@ void print_titles(int *max_y, int *max_x) {
 	mvprintw(2, *max_x/2 - 6, "Whack-A-Mole");
 	mvprintw(3, *max_x/2 - 18, "To whack a mole, type the hole number");
 	mvprintw(*max_y - 4, 10, "Score:");
-	mvprintw(*max_y - 4, *max_x-13, "Round:");
+	mvprintw(*max_y - 4, *max_x - 13, "Round:");
+}
+
+void print_warning(int *max_y, int *max_x) {
+	mvprintw(*max_y - 4, *max_x/2 - 12, "New mole hole incoming!");
+}
+
+void print_end_screen(int *max_y, int *max_x, int *score) {
+	mvprintw(*max_y/2, *max_x/2 - 16, "Great job, you whacked %d moles!", *score);
+}
+
+void remove_warning(int *max_y, int *max_x) {
+	mvprintw(*max_y - 4, *max_x/2 - 12, "                       ");
 }
 
 /** intialize_holes() - prepares struct moleHole for the game */
@@ -77,7 +89,7 @@ int main(int *argc, char *argv[]) {
 	int max_y, max_x;
 	int score = 0, round = 0;
 	char c = 0;
-	int timing = 1000;
+	int timing = 1500;
 	struct moleHole holes[10];
 
 	initscr();
@@ -93,34 +105,58 @@ int main(int *argc, char *argv[]) {
 	print_titles(&max_y, &max_x);
 	initialize_holes(holes, &max_y, &max_x);
 
-	while(round <= 7) {
+	while(round <= 6) {
 		update_mole(holes, round);
 		update_holes(holes, round);
 		update_score(&max_y, &max_x, &score, &round);
-		refresh();
 		if((c = getch()) != ERR) {
 			c = c - '0';
-			if(holes[c].hole_char == MOLE)
+			/* needs some work, but adds a visual to which hole you whack */
+			attron(A_STANDOUT);
+			mvprintw(holes[c].pos_y, holes[c].pos_x + 1, " ");
+			mvprintw(holes[c].pos_y, holes[c].pos_x - 1, " ");
+			refresh();
+			usleep(timing * 100);
+			attroff(A_STANDOUT);
+			mvprintw(holes[c].pos_y, holes[c].pos_x + 1, " ");
+			mvprintw(holes[c].pos_y, holes[c].pos_x - 1, " ");
+
+			if(holes[c].hole_char == MOLE){
+				timing = timing - 50;
 				score++;
-			else
+			}
+			else {
+				timing = timing - 50;
 				score--;
+			}
 		}
 		else {
 			timing = timing - 100;
 		}
-		/* DEBUG 
+		/* DEBUG
 		mvprintw(1,3,"timing: %d", timing);
 		mvprintw(2,3,"integer: %d", c);
 		mvprintw(3,3,"char: %c", c);
 		mvprintw(4,3,"holes: %c", holes[c].hole_char);
 		refresh();
 		*/
-
-		if(timing <= 0) {
+		if(timing <= 300 && timing > 0) {
+			if(round < 6)
+				print_warning(&max_y, &max_x);
+		}
+		else if (timing <= 0) {
+			if(round < 6)
+				remove_warning(&max_y, &max_x);
 			round++;
-			timing = 1000;
+			timing = 1200;
 		}
 	}
+
+	clear();
+	print_end_screen(&max_y, &max_x, &round);
+	refresh();
+	sleep(5);
+
 	endwin();
 	return 0;
 }
