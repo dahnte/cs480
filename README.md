@@ -3,7 +3,7 @@ The process of completing CS480's assignments and labs with the help of git vers
 
 Course Book: _Beginning Linux Programming 4th Edition (Matthew and Stones)_
 
-All assignments have been compiled using gcc 4.8.5 20150623 (Red Hat 4.8.5-44)
+All assignments have been tested using gcc 4.8.5 20150623 (Red Hat 4.8.5-44)
 
 ### [Assignment 1](https://github.com/dahnte/cs480/tree/main/assignment1)
 Contains `writing_bog.c` which is a program that will transcribe any _.txt_ file and produce two different files. In this case, the Irish folk song contained in `bog_lyrics.txt` will be transcribed.
@@ -17,3 +17,6 @@ Contains `player1.c`, `player2.c`, `string_game.c` and `string_game.h`. In other
 
 ### [Assignment 3](https://github.com/dahnte/cs480/tree/main/assignment3)
 Contains `inchworm.c` which is a simulated inchworm holding pen using the _ncurses_ library. Each worm runs on a POSIX thread and follows a set of rules to make sure these critters stay on the screen at all times.
+
+### [Lab 6](https://github.com/dahnte/cs480/tree/main/lab6)
+Contains `whackamole.c`, a whack-a-mole clone made in C using ncurses.
