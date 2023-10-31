@@ -19,4 +19,4 @@ Contains `player1.c`, `player2.c`, `string_game.c` and `string_game.h`. In other
 Contains `inchworm.c` which is a simulated inchworm holding pen using the _ncurses_ library. Each worm runs on a POSIX thread and follows a set of rules to make sure these critters stay on the screen at all times.
 
 ### [Lab 6](https://github.com/dahnte/cs480/tree/main/lab6)
-Conatints `whackamole.c` which is whack-a-mole made in C using ncurses.
+Contains `whackamole.c`, a whack-a-mole clone made in C using ncurses.
