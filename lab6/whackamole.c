@@ -22,8 +22,9 @@ void print_warning(int *max_y, int *max_x) {
 	mvprintw(*max_y - 4, *max_x/2 - 12, "New mole hole incoming!");
 }
 
-void print_end_screen(int *max_y, int *max_x, int *score) {
-	mvprintw(*max_y/2, *max_x/2 - 16, "Great job, you whacked %d moles!", *score);
+void print_end_screen(int *max_y, int *max_x, int total_score, int hit_score) {
+	total_score = hit_score - total_score;
+	mvprintw(*max_y/2, *max_x/2 - 23, "Great job, you whacked %d moles and missed %d!", hit_score, total_score);
 }
 
 void remove_warning(int *max_y, int *max_x) {
@@ -56,9 +57,12 @@ void initialize_holes(struct moleHole holes[], int *max_y, int *max_x) {
 
 /** update_mole() - randomizes mole placement, empties holes before placing mole */
 void update_mole(struct moleHole holes[], int round) {
-	round = round + 3; /* should be 2 but its +1 because we need to include 0 */
+	if(round < 7)
+		round = round + 3; /* should be 2 but its +1 because we need to include 0 */
+	else
+		round = round + 2;
 	int r = rand() % round; /* inclusive */
-
+	
 	while(round >= 0) {
 		holes[round].hole_char = EMPTY_HOLE;
 		round--;
@@ -72,7 +76,7 @@ void update_holes(struct moleHole holes[], int round) {
 	while(round >= 0) {
 		attron(A_STANDOUT);
 		mvprintw(holes[round].pos_y, holes[round].pos_x, "%c", holes[round].hole_char);
-		attroff(A_STANDOUT);
+	  	attroff(A_STANDOUT);
 		mvprintw(holes[round].pos_y + 1, holes[round].pos_x, "%d", round);
 		round--;
 	}
@@ -80,14 +84,14 @@ void update_holes(struct moleHole holes[], int round) {
 
 /** update_score() - prints current score and round */
 //TODO BUG going from negative to positive doubles your points?
-void update_score(int *max_y, int *max_x, int *score, int *round) {
-	mvprintw(*max_y - 3, 12, "%d", *score);
+void update_score(int *max_y, int *max_x, int *total_score, int *round) {
+	mvprintw(*max_y - 3, 12, "%d", *total_score);
 	mvprintw(*max_y - 3, *max_x - 11, "%d", *round);
 }
 
 int main(int *argc, char *argv[]) {
 	int max_y, max_x;
-	int score = 0, round = 0;
+	int total_score = 0, hit_score, round = 0;
 	char c = 0;
 	int timing = 1500;
 	struct moleHole holes[10];
@@ -105,10 +109,10 @@ int main(int *argc, char *argv[]) {
 	print_titles(&max_y, &max_x);
 	initialize_holes(holes, &max_y, &max_x);
 
-	while(round <= 6) {
+	while(round <= 7) {
 		update_mole(holes, round);
 		update_holes(holes, round);
-		update_score(&max_y, &max_x, &score, &round);
+		update_score(&max_y, &max_x, &total_score, &round);
 		if((c = getch()) != ERR) {
 			c = c - '0';
 			/* needs some work, but adds a visual to which hole you whack */
@@ -123,11 +127,12 @@ int main(int *argc, char *argv[]) {
 
 			if(holes[c].hole_char == MOLE){
 				timing = timing - 50;
-				score++;
+				total_score++;
+				hit_score++;
 			}
 			else {
 				timing = timing - 50;
-				score--;
+				total_score--;
 			}
 		}
 		else {
@@ -140,12 +145,12 @@ int main(int *argc, char *argv[]) {
 		mvprintw(4,3,"holes: %c", holes[c].hole_char);
 		refresh();
 		*/
-		if(timing <= 300 && timing > 0) {
-			if(round < 6)
+		if(timing <= 200 && timing > 0) {
+			if(round < 7)
 				print_warning(&max_y, &max_x);
 		}
 		else if (timing <= 0) {
-			if(round < 6)
+			if(round < 7)
 				remove_warning(&max_y, &max_x);
 			round++;
 			timing = 1200;
@@ -153,7 +158,7 @@ int main(int *argc, char *argv[]) {
 	}
 
 	clear();
-	print_end_screen(&max_y, &max_x, &round);
+	print_end_screen(&max_y, &max_x, total_score, hit_score);
 	refresh();
 	sleep(5);
 
